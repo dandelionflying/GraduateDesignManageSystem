@@ -1,0 +1,30 @@
+.uploaddiv{
+	background-color: #DCDCDC;
+	height: 170px;
+	width: 100%;
+	border-radius: 10px;
+	
+	text-align: center;
+	padding-top: 30px;
+}
+.docdiv{
+
+}
+#docdiv2{
+	display: none;
+}
+#docdiv3{
+	display: none;
+}
+#docdiv4{
+	display: none;
+}
+#docdiv5{
+	display: none;
+}
+#docdiv6{
+	display: none;
+}
+#docdiv7{
+	display: none;
+}

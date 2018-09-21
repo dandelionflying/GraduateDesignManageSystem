@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gdms.dao.TopicDao">
+
+<!-- 	<resultMap type="gdms.model.Topic" id="topicResultMap">
+	    <id property="topicId" column="topic_id"/>
+	    <result property="topicName" column="topic_name"/>
+	    <result property="teacherName" column="teacher_name"/>
+	    <result property="content" column="content"/>
+	    <result property="demand" column="demand"/>
+	    <result property="topicType" column="topic_type"/>
+	    <result property="state" column="state"/>
+	</resultMap> -->
+    <select id="queryTopicByTeacher" parameterType="string" resultType="gdms.model.Topic">
+        select * from topic where teacher_name = #{teacherName};
+    </select>
+	<select id="queryAllTopic" resultType="gdms.model.Topic">
+		select * from topic;
+	</select>
+	<select id="queryTopicByName" parameterType="string" resultType="gdms.model.Topic">
+		select * from topic where topicname = #{topicName};
+	</select>
+	<insert id="addTopic" parameterType="gdms.model.Topic">
+		insert into topic (topic_id,topic_name,teacher_name,content,demand,topic_type) values(#{topicId},#{topicName},#{teacherName},#{content},#{demand},#{topicType});
+	</insert>
+	<select id="queryContentById" parameterType="string" resultType="java.lang.String">
+	    select content from topic where topic_id = #{topicId};
+	</select>
+	<select id="queryTopicNameByStudentName" parameterType="string" resultType="java.lang.String">
+	    select topic_name from topic where topic_id = (select topic_id from st where s_id = #{sId});
+	</select>
+	<select id="queryTopicByKey" parameterType="string" resultType="gdms.model.Topic">
+	    select * from topic where topic_name like CONCAT('%',#{key},'%');
+	</select>
+</mapper>

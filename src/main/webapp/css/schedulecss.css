@@ -1,0 +1,28 @@
+.schedule{
+	margin-top: 80px;
+	background-color: #DCDCDC;
+	border-radius: 20px;
+	width: 400px;
+	text-align: center;
+}
+.divideschedules{
+	
+	
+	margin-top: 15px;
+	
+}
+.advice{
+	border-radius: 15px;
+	padding: 10px;
+	background-color: #DCDCDC;
+	height: 120px;
+}
+.schedules{
+	border-radius: 15px;
+	border:2px solid #cacaca;
+	background-color: #DCDCDC;
+	height: 120px;
+}
+.task-state{
+	
+}

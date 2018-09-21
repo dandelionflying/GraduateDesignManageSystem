@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gdms.dao.DocDao">
+	  
+    <insert id="insertDoc" parameterType="gdms.model.Doc">
+        insert into docs (uid,doc_name,doc_url,classify,doctype,create_time) values(#{uid},#{docName},#{docUrl},#{classify},#{docType},#{createDate});
+    </insert>
+   	
+    <select id="getDocsBySid" parameterType="string" resultType="gdms.model.Doc">
+        select * from docs where uid = #{uid};
+    </select>
+   
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="gdms.dao.StudentDao">
+    <!-- <resultMap type="gdms.model.Student" id="studentResult">
+        <id property="" />
+    </resultMap> -->
+	<select id="selectByLoginnameAndPassword" parameterType="string" resultType="gdms.model.Student">
+	    select * from student where s_id = #{username} and s_password = #{password}
+	</select>
+<!-- 	<update id="updateStudentMessage" parameterMap="">
+	    update student () value();
+	</update> -->
+	
+	<insert id="insertSt" parameterType="string">
+	    insert into st (s_id,topic_id) values(#{s_id},#{topic_id});
+	</insert>
+</mapper>
