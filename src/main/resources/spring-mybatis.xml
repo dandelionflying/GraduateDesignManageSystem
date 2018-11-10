@@ -39,6 +39,24 @@
 		<property name="typeAliasesPackage" value="gdms.model" />
 		<!-- 扫描sql配置文件:mapper需要的xml文件 -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml" />
+		
+		<property name="plugins">
+		    <!-- An array can contain multiple inner bean, ref, collection, or value 
+				 elements. This configuration element will always result in an 
+				 array, even when being defined e.g. as a value for a map with 
+				 value type Object. -->
+		    <array>
+		        <bean class="com.github.pagehelper.PageInterceptor">
+		            <property name="properties">
+			          <!--使用下面的方式配置参数，一行配置一个 -->
+			          <value>
+			            reasonable=true
+			            helperDialect=mysql
+			          </value>
+			        </property>
+		        </bean>
+		    </array>
+		</property>
 	</bean>
     
 	<!-- 4.配置扫描Dao接口包，动态实现Dao接口，注入到spring容器中 -->

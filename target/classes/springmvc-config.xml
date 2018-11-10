@@ -16,7 +16,6 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
     
-    
     <!-- 默认配置方案 -->
     <mvc:annotation-driven>
         <!-- 消息转换器 -->
