@@ -3,7 +3,7 @@ package gdms.model;
 import java.sql.Date;
 
 public class Doc {
-	private int docid;
+	private int docId;
 	private String uid;
 	private String docName;
 	private String docUrl;
@@ -11,11 +11,11 @@ public class Doc {
 	private String docType;
 	private Date createDate;
 	
-	public int getDocid() {
-		return docid;
+	public int getDocId() {
+		return docId;
 	}
-	public void setDocid(int docid) {
-		this.docid = docid;
+	public void setDocId(int docId) {
+		this.docId = docId;
 	}
 	public String getUid() {
 		return uid;

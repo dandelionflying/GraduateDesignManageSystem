@@ -29,4 +29,14 @@ public interface TopicDao {
 	String queryTopicNameByStudentName(@Param("sId") String sId);
 	
 	List<Topic> queryTopicByKey(@Param("key") String key);
+
+	List<String> queryTop10Key();
+
+	void updateHotKey(@Param("keyName") String key);
+
+	String queryKeyByName(@Param("keyName") String key);
+
+	void insertHotKey(String key);
+	
+	List<Topic> queryTopicByTag(@Param("tag") int tag);
 }

@@ -27,5 +27,9 @@ public class DocServiceImpl implements DocService {
 		List<Doc> docs = docDao.getDocsBySid(uid);
 		return docs;
 	}
+	@Override
+	public String downloadById(int docId) {
+		return docDao.queryUrlById(docId);
+	}
 
 }

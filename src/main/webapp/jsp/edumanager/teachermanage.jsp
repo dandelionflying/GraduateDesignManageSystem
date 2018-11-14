@@ -8,7 +8,7 @@
 	<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link rel="stylesheet" href="../../css/centercss.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/centercss.css">
 <body>
 	<div class="headbar navbar navbar-fixed-top navbar-inverse" id="headbar1" role="navigation">
 		<div class="container">
@@ -31,9 +31,9 @@
 			</div>
 			<div class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li><a href="edumanagercenter.jsp"><span class="glyphicon glyphicon-home"></span> 主页</a></li>
-					<li><a href="stumanage.jsp"><span class="glyphicon glyphicon-user"></span> 学生管理</a></li>
-					<li><a href="teachermanage.jsp"><span class="glyphicon glyphicon-user"></span> 教师管理</a></li>
+					<li><a href="edumanagercenter"><span class="glyphicon glyphicon-home"></span> 主页</a></li>
+					<li><a href="stumanage"><span class="glyphicon glyphicon-user"></span> 学生管理</a></li>
+					<li><a href="teachermanage"><span class="glyphicon glyphicon-user"></span> 教师管理</a></li>
 					<li><a href="stdetails.jsp"><span class="glyphicon glyphicon-th-list"></span> 选题详情</a></li>
 					<li><a href="answers.jsp"><span class="glyphicon glyphicon-th-list"></span> 答辩详情</a></li>
 					<li><a href=""><span class="glyphicon glyphicon-user"></span> 个人信息</a></li>

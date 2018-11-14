@@ -51,4 +51,39 @@ public class TopicServiceImpl implements TopicService{
 		return topicDao.queryTopicByKey(key);
 	}
 
+	@Override
+	public List<String> getTop10HotKeys() {
+		return topicDao.queryTop10Key();
+	}
+
+	@Override
+	public void modifyHotKey(String key) {
+		topicDao.updateHotKey(key);
+		
+	}
+
+	@Override
+	public boolean searchKeyByName(String key) {
+		if(topicDao.queryKeyByName(key)==null)
+			return false;
+		else
+			return true;
+	}
+
+	@Override
+	public void addHotKey(String key) {
+		topicDao.insertHotKey(key);
+	}
+	
+	@Override
+	public List<Topic> getPassedTopics() {
+		List<Topic> topics = topicDao.queryTopicByTag(2);
+		return topics;
+	}
+
+	@Override
+	public List<Topic> getNewTopics() {
+		List<Topic> topics = topicDao.queryTopicByTag(0);
+		return topics;
+	}
 }

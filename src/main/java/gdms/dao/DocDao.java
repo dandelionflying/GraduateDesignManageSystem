@@ -11,4 +11,5 @@ import gdms.model.Doc;
 public interface DocDao {
 	public boolean insertDoc(Doc newDoc);
 	public List<Doc> getDocsBySid(@Param("uid")String uid);
+	public String queryUrlById(int docId);
 }

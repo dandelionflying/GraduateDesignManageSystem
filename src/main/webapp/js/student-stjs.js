@@ -6,8 +6,31 @@ function st(topicid) {
 		window.location.reload();
 	});
 }
-
+function contents(topicId) {
+	console.log(topicId);
+	$.post("topicContent.action", {
+		topicId : topicId,
+	}, function(data) {
+		console.log(data);
+		$("#modal-body-content").text(data);
+	});
+}
 window.onload = function() {
+	$.ajax({
+		type:"get",
+		url:"hotkey.action",
+		datatype:"json",
+		contentType:"application/json",
+		success:function(data){
+			var html = "";
+			var keyList = $("#hot-keys-list");
+			
+			for(var i = 0; i < data.length; i++){
+				var li = $("<li style='display:block'>"+data[i]+"</li>");
+				keyList.append(li);
+			}
+		}
+	});
 	$.ajax({
 		type : "post",
 		url : "st.action",
@@ -44,7 +67,7 @@ window.onload = function() {
 							+ data[i].state
 							+ "</button>");
 				}
-				var btn2 = $("<button class='btn btn-info btn-xs'>详情</button>");
+				var btn2 = $("<button class='btn btn-info btn-xs content-btn' onclick='contents("+data[i].topicId+")' data-toggle='modal' data-target='#topic-details'>详情</button>");
 				var tbody = $("#all-topics");
 				td6.append(btn1);
 				td6.append(btn2);
@@ -98,7 +121,7 @@ window.onload = function() {
 								+ data[i].state
 								+ "</button>");
 					}
-					var btn2 = $("<button class='btn btn-info btn-xs'>详情</button>");
+					var btn2 = $("<button class='btn btn-info btn-xs content-btn' onclick='contents("+data[i].topicId+")' data-toggle='modal' data-target='#topic-details'>详情</button>");
 					var tbody = $("#all-topics");
 					td6.append(btn1);
 					td6.append(btn2);

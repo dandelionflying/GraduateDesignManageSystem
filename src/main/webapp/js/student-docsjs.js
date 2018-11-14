@@ -1,3 +1,11 @@
+function downloadFile(docId){
+	$.get("download.action",{
+		id : docId
+	},function(data){
+		
+	});
+}
+
 window.onload = function() {
 		
 		$("#leftli1").click(function() {

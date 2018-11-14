@@ -1,5 +1,7 @@
 package gdms.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +19,8 @@ public interface StudentDao {
 	Student updateStudentMessage(@Param("s_id") String id);
 	
 	boolean insertSt(@Param("s_id") String id,@Param("topic_id")String topicId);
+
+	void insertInfoBatch(List<Student> studentList);
+
+	List<Student> queryStudent();
 }

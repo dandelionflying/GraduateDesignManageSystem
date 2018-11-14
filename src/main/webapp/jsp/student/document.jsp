@@ -83,8 +83,9 @@
 							<td><c:out value="${docs['开题报告']['docName']}"/></td>
 							<td><c:out value="${docs['开题报告']['createDate']}"/></td>
 							<td><c:out value="${docs['开题报告']['docType']}"/></td>
+							
 							<td>
-								<button class="btn btn-xs btn-success">查看</button>
+								<a class="btn btn-xs btn-success" href="download?id=${docs['开题报告']['docId']}">查看</a>
 								<button class="btn btn-xs btn-success">删除</button>
 								<button class="btn btn-xs btn-success">查看教师指导</button>
 							</td>
@@ -111,7 +112,7 @@
 							<td><c:out value="${docs['项目计划书']['createDate']}"/></td>
 							<td><c:out value="${docs['项目计划书']['docType']}"/></td>
 							<td>
-								<button class="btn btn-xs btn-success">查看</button>
+								<a class="btn btn-xs btn-success" href="download?id=${docs['项目计划书']['docId']}">查看</a>
 								<button class="btn btn-xs btn-success">删除</button>
 								<button class="btn btn-xs btn-success">查看教师指导</button>
 							</td>
@@ -138,7 +139,7 @@
 							<td><c:out value="${docs['周志']['createDate']}"/></td>
 							<td><c:out value="${docs['周志']['docType']}"/></td>
 							<td>
-								<button class="btn btn-xs btn-success">查看</button>
+								<a class="btn btn-xs btn-success" href="download?id=${docs['周志']['docId']}">查看</a>
 								<button class="btn btn-xs btn-success">删除</button>
 								<button class="btn btn-xs btn-success">查看教师指导</button>
 							</td>
@@ -166,7 +167,7 @@
 							<td><c:out value="${docs['中期检查表']['createDate']}"/></td>
 							<td><c:out value="${docs['中期检查表']['docType']}"/></td>
 							<td>
-								<button class="btn btn-xs btn-success">查看</button>
+								<a class="btn btn-xs btn-success" href="download?id=${docs['中期检查表']['docId']}">查看</a>
 								<button class="btn btn-xs btn-success">删除</button>
 								<button class="btn btn-xs btn-success">查看教师指导</button>
 							</td>
@@ -193,7 +194,7 @@
 							<td><c:out value="${docs['毕业设计报告']['createDate']}"/></td>
 							<td><c:out value="${docs['毕业设计报告']['docType']}"/></td>
 							<td>
-								<button class="btn btn-xs btn-success">查看</button>
+								<a class="btn btn-xs btn-success" href="download?id=${docs['毕业设计报告']['docId']}">查看</a>
 								<button class="btn btn-xs btn-success">删除</button>
 								<button class="btn btn-xs btn-success">查看教师指导</button>
 							</td>
@@ -221,7 +222,7 @@
 							<td><c:out value="${docs['毕业论文']['createDate']}"/></td>
 							<td><c:out value="${docs['毕业论文']['docType']}"/></td>
 							<td>
-								<button class="btn btn-xs btn-success">查看</button>
+								<a class="btn btn-xs btn-success" href="download?id=${docs['毕业论文']['docId']}">查看</a>
 								<button class="btn btn-xs btn-success">删除</button>
 								<button class="btn btn-xs btn-success">查看教师指导</button>
 							</td>

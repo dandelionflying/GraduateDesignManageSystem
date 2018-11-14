@@ -1,3 +1,5 @@
+
+
 $('#upload-file').fileinput({//初始化上传文件框
 	showUpload : true,
 	showRemove : false,

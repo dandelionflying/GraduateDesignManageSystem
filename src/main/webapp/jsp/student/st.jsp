@@ -63,10 +63,13 @@
 					<button class="btn btn-sm btn-info search"
 						style="margin-top: 5px;">搜索</button>
 				</div>
-			<div class="labels">
+			<div class="labels" id="hot-keys">
 				<h4>
 					热门搜索
-					</h4>
+				</h4>
+				<div class="hot-keys-list" id="hot-keys-list">
+					
+				</div>	
 			</div>
 
 		</div>
@@ -107,6 +110,21 @@
 
 				</tbody>
 			</table>
+		</div>
+	</div>
+	<!-- 课题详情modal -->
+	<div class="modal fade topic-details" id="topic-details" role="dialog" aria-hidden="true" aria-labelledby="topic-details-label">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button class="close" type="button" data-dismiss="modal" aria-hidden="true">×</button>
+					<h4 class="modal-title" id="topic-details-label">课题详情</h4>
+				</div>
+				<div class="modal-body" id="modal-body-content"></div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" type="button" data-dismiss="modal">关闭</button>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

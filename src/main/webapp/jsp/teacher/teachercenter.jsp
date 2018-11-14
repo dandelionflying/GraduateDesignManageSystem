@@ -81,7 +81,7 @@
 							<th>操作</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody class="stu-msg-tbody">
 						<tr>
 							<td id="stu-topic-msg-1"></td>
 							<td id="stu-topic-msg-2"></td>
@@ -91,6 +91,7 @@
 							<td id="stu-topic-msg-6"></td>
 							<td>
 								<button class="btn btn-xs btn-default show-detail">查看</button>
+								
 							</td>
 						</tr>
 					</tbody>

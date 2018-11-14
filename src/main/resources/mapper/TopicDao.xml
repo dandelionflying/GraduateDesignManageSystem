@@ -35,4 +35,19 @@
 	<select id="queryTopicByKey" parameterType="string" resultType="gdms.model.Topic">
 	    select * from topic where topic_name like CONCAT('%',#{key},'%');
 	</select>
+	<select id="queryTop10Key" resultType="java.lang.String">
+	    select key_name from searchs order by weight desc,times desc limit 0,10;
+	</select>
+	<update id="updateHotKey" parameterType="java.lang.String">
+	    update searchs set times = times+1 where key_name = #{keyName};
+	</update>
+	<select id="queryKeyByName" resultType="java.lang.String">
+	    select key_name from searchs where key_name = #{keyName};
+	</select>
+	<insert id="insertHotKey">
+	    insert into searchs (key_name) values(#{keyName});
+	</insert>
+	<select id="queryTopicByTag" parameterType="int" resultType="gdms.model.Topic">
+        select * from topic where tag = #{tag};
+    </select>
 </mapper>

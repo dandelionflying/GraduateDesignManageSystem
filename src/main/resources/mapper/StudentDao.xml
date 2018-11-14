@@ -17,4 +17,16 @@
 	<insert id="insertSt" parameterType="string">
 	    insert into st (s_id,topic_id) values(#{s_id},#{topic_id});
 	</insert>
+	<insert id="insertInfoBatch" parameterType="java.util.List">
+	    insert into student (s_id,student_name,s_password,enter_year,class_name,s_mayor,dept_id,s_sex,s_tel)
+	    values
+	    <foreach collection="list" item="item" index="index" separator=",">
+	      (#{item.sId}, #{item.studentName}, #{item.sPassword},#{item.enterYear}, #{item.class_name},
+	      #{item.sMayor}, #{item.deptId},#{item.sSex}, #{item.sTel})
+	    </foreach>
+	</insert>
+	
+	<select id="queryStudent" resultType="gdms.model.Student">
+	    select * from student;
+	</select>
 </mapper>

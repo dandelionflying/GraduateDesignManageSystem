@@ -50,9 +50,32 @@ public class TopicController {
 	@ResponseBody
 	@RequestMapping(value="searchTopic.action")
 	public List<Topic> searchTopicByKey(@RequestParam("keyWord")String key){
-		
+		if(!topicService.searchKeyByName(key)) {
+			topicService.addHotKey(key);
+		}else {
+			topicService.modifyHotKey(key);
+		}
 		List<Topic> list = topicService.searchTopicByKey(key);
 		return list;
 		
+	}
+	@ResponseBody
+	@RequestMapping(value="hotkey.action")
+	public List<String> getTop10HotKeys(){
+		return topicService.getTop10HotKeys(); 
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "getPassedTopics.action")
+	public List<Topic> getPassedTopics(){
+		List<Topic> topics = topicService.getPassedTopics();
+		return topics;
+		
+	}
+	@ResponseBody
+	@RequestMapping(value = "getNewTopics.action")
+	public List<Topic> getNewTopics(){
+		List<Topic> topics = topicService.getNewTopics();
+		return topics;
 	}
 }

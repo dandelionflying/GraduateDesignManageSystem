@@ -12,5 +12,7 @@
     <select id="getDocsBySid" parameterType="string" resultType="gdms.model.Doc">
         select * from docs where uid = #{uid};
     </select>
-   
+   	<select id="queryUrlById" resultType="java.lang.String">
+   	    select doc_url from docs where doc_id = #{docId};
+   	</select>
 </mapper>
