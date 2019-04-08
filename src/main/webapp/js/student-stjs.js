@@ -1,6 +1,6 @@
 function st(topicid) {
 	$.post("selectTopic.action", {
-		topicId : topicid
+		id : topicid
 	}, function(result) {
 		alert(result);
 		window.location.reload();
@@ -9,7 +9,7 @@ function st(topicid) {
 function contents(topicId) {
 	console.log(topicId);
 	$.post("topicContent.action", {
-		topicId : topicId,
+		id : topicId,
 	}, function(data) {
 		console.log(data);
 		$("#modal-body-content").text(data);
@@ -18,13 +18,14 @@ function contents(topicId) {
 window.onload = function() {
 	$.ajax({
 		type:"get",
-		url:"hotkey.action",
+		url:"topic/hotkey.action?temp="+new Date(),
 		datatype:"json",
 		contentType:"application/json",
 		success:function(data){
+			console.log(data);
 			var html = "";
 			var keyList = $("#hot-keys-list");
-			
+			keyList.empty();
 			for(var i = 0; i < data.length; i++){
 				var li = $("<li style='display:block'>"+data[i]+"</li>");
 				keyList.append(li);
@@ -32,9 +33,11 @@ window.onload = function() {
 		}
 	});
 	$.ajax({
-		type : "post",
-		url : "st.action",
-
+		type : "GET",
+		url : "topic/getTopics",
+		data : {
+			"tag" : 2
+		},
 		datatype : "json",
 		conentType : "application/json",
 		success : function(data) {
@@ -43,7 +46,7 @@ window.onload = function() {
 			console.log(data);
 			for (var i = 0; i < data.length; i++) {
 				var newTr = $("<tr class='success'></tr>");
-				var td1 = $("<td>" + data[i].topicId + "</td>");
+				var td1 = $("<td>" + data[i].id + "</td>");
 				var td2 = $("<td>" + data[i].topicName + "</td>");
 				var td3 = $("<td>" + data[i].topicType + "</td>");
 				var td4 = $("<td>" + data[i].demand + "</td>");
@@ -52,22 +55,22 @@ window.onload = function() {
 				var btn1;
 				if (data[i].state == '可选') {
 					btn1 = $("<button class='btn btn-info btn-xs st-btn' id="
-							+ data[i].topicId
+							+ data[i].id
 							+ " onclick='st("
-							+ data[i].topicId
+							+ data[i].id
 							+ ")'>"
 							+ data[i].state
 							+ "</button>");
 				} else {
 					btn1 = $("<button class='btn btn-info btn-xs' disabled id="
-							+ data[i].topicId
+							+ data[i].id
 							+ " onclick='st("
-							+ data[i].topicId
+							+ data[i].id
 							+ ")'>"
 							+ data[i].state
 							+ "</button>");
 				}
-				var btn2 = $("<button class='btn btn-info btn-xs content-btn' onclick='contents("+data[i].topicId+")' data-toggle='modal' data-target='#topic-details'>详情</button>");
+				var btn2 = $("<button class='btn btn-info btn-xs content-btn' onclick='contents("+data[i].id+")' data-toggle='modal' data-target='#topic-details'>详情</button>");
 				var tbody = $("#all-topics");
 				td6.append(btn1);
 				td6.append(btn2);
@@ -79,7 +82,9 @@ window.onload = function() {
 				newTr.append(td6);
 				tbody.append(newTr);
 			}
+			
 		}
+		
 	});
 	$(".search").click(function(){
 		var word = $("#searchWord").val();
@@ -133,6 +138,23 @@ window.onload = function() {
 					newTr.append(td6);
 					tbody.append(newTr);
 				}
+				//每次搜索完刷新热门搜索
+				$.ajax({
+					type:"get",
+					url:"hotkey.action?temp="+new Date(),
+					datatype:"json",
+					contentType:"application/json",
+					success:function(data){
+						console.log(data);
+						var html = "";
+						var keyList = $("#hot-keys-list");
+						keyList.empty();
+						for(var i = 0; i < data.length; i++){
+							var li = $("<li style='display:block'>"+data[i]+"</li>");
+							keyList.append(li);
+						}
+					}
+				});
 			}
 		});
 	});

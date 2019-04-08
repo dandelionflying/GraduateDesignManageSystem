@@ -14,8 +14,12 @@
 		<!-- 开启驼峰命名转换:Table{create_time} -> Entity{createTime} -->
 		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
-	
+
 	<mappers>
-	    <package name="classpath:mapper"/>
+		<package name="classpath:mapper" />
 	</mappers>
+	<!-- 配置别名 -->
+<!-- 	<typeAliases>  批量扫描别名
+		<package name="com.running4light.gdms.pojo" />
+	</typeAliases> -->
 </configuration>

@@ -12,17 +12,17 @@ window.onload = function() {
 
 	});
 
-	$("#type1").click(function() {
-		$(".type-label").text($("#type-a1").text());
+	$("#classify1").click(function() {
+		$(".type-label").text($("#classify1").text());
 	});
-	$("#type2").click(function() {
-		$(".type-label").text($("#type-a2").text());
+	$("#classify2").click(function() {
+		$(".type-label").text($("#classify2").text());
 	});
-	$("#type3").click(function() {
-		$(".type-label").text($("#type-a3").text());
+	$("#classify3").click(function() {
+		$(".type-label").text($("#classify3").text());
 	});
-	$("#type4").click(function() {
-		$(".type-label").text($("#type-a4").text());
+	$("#classify4").click(function() {
+		$(".type-label").text($("#classify4").text());
 	});
 
 	/* $(".content-btn").click(function(){

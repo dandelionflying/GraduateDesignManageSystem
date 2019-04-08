@@ -1,6 +1,6 @@
 window.onload = function() {
 	$(".show-detail").click(function() {
-		window.location.href = "studentschedule.jsp";
+		window.location.href = "studentschedule";
 	});
 	
 	/*
@@ -41,10 +41,10 @@ function getStudentTopic(sId) {
 			
 			
 			
-			$("#stu-topic-msg-1").text(msg.sId);
-			$("#stu-topic-msg-2").text(msg.studentName);
+			$("#stu-topic-msg-1").text(msg.id);
+			$("#stu-topic-msg-2").text(msg.username);
 			$("#stu-topic-msg-3").text(msg.className);
-			$("#stu-topic-msg-4").text(msg.sMayor);
+			$("#stu-topic-msg-4").text(msg.mayor);
 			$("#stu-topic-msg-5").text(msg.topicName);
 			$(".detail-table").hide(500);
 			$("#detail1").show(500);

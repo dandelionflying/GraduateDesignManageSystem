@@ -8,7 +8,7 @@
 	
     <!-- 配置整合mybatis过程 -->
     <!-- 配置数据库相关参数 -->
-    <context:property-placeholder location="classpath:db.properties"/>
+    <context:property-placeholder location="classpath:config/db.properties"/>
     
     <!-- 数据库连接池 -->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -36,7 +36,7 @@
 		<!-- 配置MyBaties全局配置文件:mybatis-config.xml -->
 		<property name="configLocation" value="classpath:mybatis-config.xml" />
 		<!-- 扫描entity包 使用别名 -->
-		<property name="typeAliasesPackage" value="gdms.model" />
+		<property name="typeAliasesPackage" value="gdms.pojo" />
 		<!-- 扫描sql配置文件:mapper需要的xml文件 -->
 		<property name="mapperLocations" value="classpath:mapper/*.xml" />
 		
@@ -64,7 +64,7 @@
 		<!-- 注入sqlSessionFactory -->
 		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
 		<!-- 给出需要扫描Dao接口包 -->
-		<property name="basePackage" value="gdms.dao" />
+		<property name="basePackage" value="com.running4light.gdms.dao" />
 	</bean>
 
 

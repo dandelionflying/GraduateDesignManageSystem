@@ -2,16 +2,80 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="gdms.dao.TeacherDao">
+<mapper namespace="com.running4light.gdms.dao.TeacherDao">
+	<resultMap id="BaseResultMap" type="com.running4light.gdms.pojo.Teacher">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+	    <result column="USERNAME" jdbcType="VARCHAR" property="username" />
+	    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+	    <result column="DEPT_ID" jdbcType="TINYINT" property="deptId" />
+	    <result column="IDENTITY" jdbcType="VARCHAR" property="identity" />
+	    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+	    <result column="TEL" jdbcType="VARCHAR" property="tel" />
+	    <result column="RANK" jdbcType="VARCHAR" property="rank" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	</resultMap>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from teacher
+		where ID = #{id,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.running4light.gdms.pojo.Teacher">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into teacher (USERNAME, PASSWORD, DEPT_ID,
+		IDENTITY, SEX, TEL)
+		values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		#{deptId,jdbcType=TINYINT},
+		#{identity,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
+	</insert>
+	<update id="updateByPrimaryKey" parameterType="com.running4light.gdms.pojo.Teacher">
+		update teacher
+	    set USERNAME = #{username,jdbcType=VARCHAR},
+	      PASSWORD = #{password,jdbcType=VARCHAR},
+	      DEPT_ID = #{deptId,jdbcType=TINYINT},
+	      IDENTITY = #{identity,jdbcType=VARCHAR},
+	      SEX = #{sex,jdbcType=VARCHAR},
+	      TEL = #{tel,jdbcType=VARCHAR},
+	      RANK = #{rank,jdbcType=VARCHAR},
+	      EMAIL = #{email,jdbcType=VARCHAR}
+	    where ID = #{id,jdbcType=VARCHAR}
+	</update>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select ID, USERNAME, PASSWORD, DEPT_ID, IDENTITY, SEX, TEL, RANK, EMAIL
+		from teacher
+		where ID = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAll" resultMap="BaseResultMap">
+		select ID, USERNAME, DEPT_ID, IDENTITY, SEX, TEL, RANK, EMAIL
+		from teacher
+	</select>
+	<select id="selectPage" parameterType="map" resultMap="BaseResultMap">
+	    select ID, USERNAME, DEPT_ID, IDENTITY, SEX, TEL, RANK, EMAIL
+		from teacher
+		limit #{index},#{page}
+	</select>
+
 	<select id="selectByLoginNameAndPassword" parameterType="string"
-		resultType="gdms.model.Teacher">
-		select * from teacher where t_id = #{username} and password = #{password};
+		resultType="com.running4light.gdms.pojo.Teacher">
+		select * from teacher where id = #{username} and password =
+		#{password};
 	</select>
-	<select id="queryMyStudent" parameterType="string" resultType="Student">
-		select * from student where s_id in (select s_id from st join topic on
-		st.topic_id = topic.topic_id and topic.teacher_name =#{teacherName});
+	<select id="queryMyStudent" parameterType="string"
+		resultType="com.running4light.gdms.pojo.Student">
+		select * from student where id in (select s_id from st join
+		topic on
+		st.topic_id = topic.id and topic.teacher_name
+		=#{teacherName});
 	</select>
-	<select id="queryMyStudentById" parameterType="string" resultType="Student">
-		select * from student where s_id = #{sId};
+	
+	<select id="queryById" parameterType="java.lang.String" resultMap="BaseResultMap">
+	    select ID, USERNAME, DEPT_ID, IDENTITY, SEX, TEL, RANK, EMAIL
+	    from teacher
+	    where ID = #{t_id,jdbcType=VARCHAR}
 	</select>
+	<select id="countTeacher" resultType="java.lang.Integer">
+	    select count(*) from teacher;
+	</select>
+
 </mapper>
