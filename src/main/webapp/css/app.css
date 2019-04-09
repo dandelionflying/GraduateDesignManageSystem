@@ -1369,7 +1369,7 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 
 .tpl-task-remind li .cosB {
     float: right;
-    width: 75px;
+    /* width: 75px; */
     margin-left: -75px;
     text-align: right;
     font-style: italic;

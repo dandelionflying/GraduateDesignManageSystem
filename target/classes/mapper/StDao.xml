@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.running4light.gdms.dao.StDao">
+  <resultMap id="BaseResultMap" type="com.running4light.gdms.pojo.St">
+    <id column="ID" jdbcType="SMALLINT" property="id" />
+    <result column="TOPIC_ID" jdbcType="VARCHAR" property="topicId" />
+    <result column="TOPIC_NAME" jdbcType="VARCHAR" property="topicName" />
+    <result column="S_ID" jdbcType="VARCHAR" property="sId" />
+    <result column="STUDENT_NAME" jdbcType="VARCHAR" property="studentName" />
+    <result column="TEACHER_NAME" jdbcType="VARCHAR" property="teacherName" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from st
+    where ID = #{id,jdbcType=SMALLINT}
+  </delete>
+  <insert id="insert" parameterType="com.running4light.gdms.pojo.St">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Short">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into st (TOPIC_ID, TOPIC_NAME, S_ID, 
+      STUDENT_NAME)
+    values (#{topicId,jdbcType=VARCHAR}, #{topicName,jdbcType=VARCHAR}, #{sId,jdbcType=VARCHAR}, 
+      #{studentName,jdbcType=VARCHAR}), #{teacherName,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.running4light.gdms.pojo.St">
+    update st
+    set TOPIC_ID = #{topicId,jdbcType=VARCHAR},
+      TOPIC_NAME = #{topicName,jdbcType=VARCHAR},
+      S_ID = #{sId,jdbcType=VARCHAR},
+      STUDENT_NAME = #{studentName,jdbcType=VARCHAR},
+      TEACHER_NAME = #{teacherName,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=SMALLINT}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select ID, TOPIC_ID, TOPIC_NAME, S_ID, STUDENT_NAME
+    from st
+    where ID = #{id,jdbcType=SMALLINT}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select ID, TOPIC_ID, TOPIC_NAME, S_ID, STUDENT_NAME ,TEACHER_NAME
+    from st
+  </select>
+  <select id="queryBySid" parameterType="java.lang.String" resultMap="BaseResultMap">
+      select * 
+      from st
+      where S_ID = #{key}
+  </select>
+  <select id="queryPage" parameterType="map" resultMap="BaseResultMap">
+      select * 
+      from st
+      limit #{index},#{page}
+  </select>
+  <select id="countst" resultType="java.lang.Integer">
+      select count(*) 
+      from st
+  </select>
+</mapper>

@@ -56,7 +56,7 @@ var pageData = {
     'index': function indexData() {
 
 
-        var myScroll = new IScroll('#wrapper', {
+        /*var myScroll = new IScroll('#wrapper', {
             scrollbars: true,
             mouseWheel: true,
             interactiveScrollbars: true,
@@ -155,8 +155,8 @@ var pageData = {
                     }
                 }
             ]
-        };
-        echartsA.setOption(option);
+        };*/
+        /*echartsA.setOption(option);*/
     },
     // ===============================================
     // 图表页

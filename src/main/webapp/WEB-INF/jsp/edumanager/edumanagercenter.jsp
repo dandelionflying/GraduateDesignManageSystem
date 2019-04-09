@@ -164,7 +164,7 @@
 						</a>
 						<ul class="tpl-left-nav-sub-menu">
 							<li>
-								<a href="">
+								<a href="file-muban">
 									<i class="am-icon-angle-right"></i><span>模板文件</span>
 								</a>
 								<a href="">

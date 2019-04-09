@@ -284,4 +284,8 @@ public class ManagerController {
 		
 		return "edumanager/edumanagercenter";
 	}
+	@RequestMapping(value = "file-muban")
+	public String toFileMuban() {
+		return "edumanager/file-muban";
+	}
 }
