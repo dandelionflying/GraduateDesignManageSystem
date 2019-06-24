@@ -1,0 +1,12 @@
+body{
+	background-color: #edece3;
+}
+th{
+border:1px solid #DCDCDC;
+}
+td{
+	border:1px solid #DCDCDC;
+}
+.centerdiv{
+	margin-top:80px;
+}

@@ -1,0 +1,23 @@
+.centerdiv{
+	margin-top:80px;
+}
+.stu-pink{
+	background-color:pink;
+}
+.stu-blue{
+	background-color:#1E90FF;
+}
+.stu-wheat3{
+	background-color:#CDBA96;
+}
+.main-box{
+	text-align: center;
+    padding: 20px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    margin-bottom: 40px;
+}
+.detail-table{
+	display:none;
+}

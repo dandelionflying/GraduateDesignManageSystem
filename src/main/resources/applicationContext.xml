@@ -15,16 +15,26 @@
 			            http://mybatis.org/schema/mybatis-spring.xsd ">
 
 	<mybatis:scan base-package="com.running4light.gdms.dao" />
-
+	<!-- <context:component-scan base-package="com.running4light.gdms.security">
+	    <context:include-filter type="annotation" expression="org.springframework.stereotype.Component"/>
+	</context:component-scan> -->
 	<!-- 使用PropertyOverrideConfigurer后处理器记载数据源参数 -->
 	<context:property-override location="classpath:config/db.properties" />
+	
+	 <!--邮件配置-->
+	<context:property-placeholder location="classpath:config/mail.properties" ignore-unresolvable="true"/>
+	
 	<!-- 配置事务管理器 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
 		p:dataSource-ref="dataSource" />
 
+	
+
 	<!-- 启用支持annotation注解方式事务管理 -->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
+	<!-- <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+	    <property name="strength" value="10"/>
+	</bean> -->
 
 </beans>

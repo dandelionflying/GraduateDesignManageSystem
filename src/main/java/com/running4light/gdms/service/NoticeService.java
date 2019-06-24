@@ -11,7 +11,13 @@ public interface NoticeService {
 
     Notice selectByPrimaryKey(Integer id);
 
-    List<Notice> selectAll();
+    List<Notice> selectAll(Integer receiver);
 
+    List<Notice> selectPage(Integer receiver,Integer index,Integer page);
+    
     int updateByPrimaryKey(Notice notice);
+
+	List<Notice> getNew(String uid, Integer count);
+	
+	Integer selectCount(Integer receiver,Integer index,Integer page);
 }

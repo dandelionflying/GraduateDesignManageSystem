@@ -22,4 +22,5 @@ public interface ManagerDao {
     
     String queryPasswordById(@Param("id") String id);
 
+    String getEmailById(String uid);
 }

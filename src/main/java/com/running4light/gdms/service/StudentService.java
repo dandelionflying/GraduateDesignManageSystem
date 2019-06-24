@@ -18,4 +18,23 @@ public interface StudentService {
 	int countStudent();
 
 	List<Student> selectPage(Integer index, Integer page);
+
+	Integer addStudents(MultipartFile file);
+	
+	Integer selectByPrimaryKeys(List<String> list);
+	int deleteByPrimaryKey(String id);
+
+    int insert(Student student);
+
+    Student selectByPrimaryKey(String id);
+
+    List<Student> selectAll();
+
+    int updateByPrimaryKey(Student student);
+
+	String getPsw(String uid);
+
+	int updatePassword(String uid, String password);
+
+	String getEmailById(String uid);
 }

@@ -1,7 +1,7 @@
 package com.running4light.gdms.pojo;
 
 public class Result {
-    private boolean flag;//是否成功
+    private boolean status;//是否成功
     private Integer code;//返回码
     private String message;//返回信息
     private Object data;//返回数据
@@ -9,25 +9,25 @@ public class Result {
     public Result() {
     }
 
-    public Result(boolean flag, Integer code, String message) {
-        this.flag = flag;
+    public Result(boolean status, Integer code, String message) {
+        this.status = status;
         this.code = code;
         this.message = message;
     }
 
-    public Result(boolean flag, Integer code, String message, Object data) {
-        this.flag = flag;
+    public Result(boolean status, Integer code, String message, Object data) {
+        this.status = status;
         this.code = code;
         this.message = message;
         this.data = data;
     }
 
-    public boolean isFlag() {
-        return flag;
+    public boolean isStatus() {
+        return status;
     }
 
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public Integer getCode() {

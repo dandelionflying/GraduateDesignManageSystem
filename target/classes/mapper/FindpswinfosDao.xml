@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.running4light.gdms.dao.FindpswinfosDao" >
+  <resultMap id="BaseResultMap" type="com.running4light.gdms.pojo.Findpswinfos" >
+    <id column="ID" property="id" jdbcType="INTEGER" />
+    <result column="UID" property="uid" jdbcType="VARCHAR" />
+    <result column="TIMEOUT" property="timeout" jdbcType="BIGINT" />
+    <result column="TOKEN" property="token" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from findpswinfos
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.running4light.gdms.pojo.Findpswinfos" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into findpswinfos (UID, TIMEOUT, TOKEN
+      )
+    values (#{uid,jdbcType=VARCHAR}, #{timeout,jdbcType=BIGINT}, #{token,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.running4light.gdms.pojo.Findpswinfos" >
+    update findpswinfos
+    set UID = #{uid,jdbcType=VARCHAR},
+      TIMEOUT = #{timeout,jdbcType=BIGINT},
+      TOKEN = #{token,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select ID, UID, TIMEOUT, TOKEN
+    from findpswinfos
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select ID, UID, TIMEOUT, TOKEN
+    from findpswinfos
+  </select>
+  <select id="selectByUid" parameterType="java.lang.String" resultMap="BaseResultMap">
+	select ID, UID, TIMEOUT, TOKEN
+    from findpswinfos where ID = #{uid}
+  </select>
+</mapper>

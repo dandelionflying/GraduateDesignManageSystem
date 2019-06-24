@@ -74,9 +74,9 @@
       this.time = new Array(); // 用于计算每个文件上传的平均网速
       this.fileCallback = new Array(); //对象数据回调结果
 
-      this.amazeuiUploadDelegateTemplate = new AmazeuiUploadDelegateTemplate(this.useDefTemplate);
-      this.context.html(this.amazeuiUploadDelegateTemplate.initContext());
-      this.amazeuiUploadDelegateTemplate.init();
+      this.amazeuiUploadDelegateTemplate = new AmazeuiUploadDelegateTemplate(this.useDefTemplate);//是否使用表格模式
+      this.context.html(this.amazeuiUploadDelegateTemplate.initContext());//初始化文件选择区域
+      this.amazeuiUploadDelegateTemplate.init();//初始化模板
 
       this.amazeuiUploadDelegateEvent = new AmazeuiUploadDelegateEvent(this.amazeuiUploadDelegateTemplate, this.downloadUrl);
 
@@ -99,7 +99,10 @@
         selectFile.attr('multiple', 'multiple');
       }
       selectFile.on('change', function() {
-        _this._handFiles(this.files);
+    	  //第二个参数要从下拉列表获取
+    	  var $selected = $("#to-who option:selected");
+    	  
+        _this._handFiles(this.files,$selected.val());
       });
     }
     // 拖拽上传
@@ -123,7 +126,7 @@
   AmazeuiUpload.prototype._defaultComplete = function(file) {
     var result = this._defaultCompleteAsync(file.responseText);
     if (result != null && result != undefined && result.status) {
-      this._defaultCompleteStatus(file, result.status, result.data.id);
+      this._defaultCompleteStatus(file, result.code, result.data.id);//生成“上传状态”列内容
     } else {
       this._defaultCompleteStatus(file, false, "");
     }
@@ -143,6 +146,7 @@
     }
     return dataObj;
   }
+//生成“上传状态”列内容
   AmazeuiUpload.prototype._defaultCompleteStatus = function(file, status, fileid) {
       var uList = this._dynamicTemplate(file);
       if (status) {
@@ -164,7 +168,7 @@
     //获取模版定义
   AmazeuiUpload.prototype._dynamicTemplate = function(file) {
     var uList;
-    if (this.useDefTemplate) {
+    if (this.useDefTemplate) {//是否使用表格模式
       uList = $('#_template tbody tr').eq(file.index);
     } else {
       uList = $('#_uList li').eq(file.index);
@@ -189,7 +193,7 @@
   }
 
   AmazeuiUpload.prototype._error = function(error, file, i) {
-    console.log(eror, file, i);
+    console.log(error, file, i);
   }
   AmazeuiUpload.prototype._dragenter = function(e) {
     e.dataTransfer.dropEffect = "copy";
@@ -242,11 +246,16 @@
       this._defaultStageChange(file);
     }
     //处理文件
-  AmazeuiUpload.prototype._handFiles = function(files) {
+  AmazeuiUpload.prototype._handFiles = function(files,towho) {
       var _this = this;
+      //文件从小到大排序
       var files = _this._sortFiles(files);
+      //上传的数量
       _this.uploadTotal = files.length;
+//      console.log(_this.queue);
       Array.prototype.push.apply(_this.queue, files);
+      console.log("方法handleFils ");
+      console.log(_this.queue);
       for (var i = 0; i < files.length; i++) {
         var code = _this._filter(files[i]);
         if (code == 'deadly') {
@@ -259,11 +268,11 @@
         }
         files[i].index = _this.fileIndex++;
         files[i].stage = 'Waiting';
-        _this._readerFile(files[i]);
+        _this._readerFile(files[i],towho);
         _this.thisFile = files[i];
       };
     }
-    //文件排序
+    //文件排序(从小到大)
   AmazeuiUpload.prototype._sortFiles = function(files) {
       var listSize = [];
       for (var i = 0; i < files.length; i++) {
@@ -306,7 +315,7 @@
       alert('无法获得文件大小')
     }
   }
-  AmazeuiUpload.prototype._setImageCardModelData = function(file, imageFileReader, img) {
+  AmazeuiUpload.prototype._setImageCardModelData = function(file, imageFileReader, img,towho) {
     var data = {};
     data.file = file;
     data.fileReaderiImage = imageFileReader;
@@ -316,33 +325,33 @@
     this.amazeuiUploadDelegateTemplate.setImageCardTemplate(data);
     this.loadOk++;
     if (this.loadOk == this.queue.length && !this.multiThreading) {
-      this._upload(this.queue[0]);
+      this._upload(this.queue[0],towho);
     }
     if (this.multiThreading) {
-      this._upload(data.file);
+      this._upload(data.file,towho);
     }
   }
-  AmazeuiUpload.prototype._setTableModelData = function(file) {
+  AmazeuiUpload.prototype._setTableModelData = function(file,towho) {
     var data = {};
     data.file = file;
-    data.fileSize = this.amazeuiUploadDelegateEvent.calculationSize(file.size);
-    data.fileType = this.amazeuiUploadDelegateEvent.calculationFileType(file);
-    this.amazeuiUploadDelegateTemplate.createTableRowData(data);
+    data.fileSize = this.amazeuiUploadDelegateEvent.calculationSize(file.size);//计算文件大小
+    data.fileType = this.amazeuiUploadDelegateEvent.calculationFileType(file);//获取文件类型
+    this.amazeuiUploadDelegateTemplate.createTableRowData(data);//创建默认模版行记录
 
     this.loadOk++;
-    if (this.loadOk == this.queue.length && !this.multiThreading) {
-      this._upload(this.queue[0]);
+    if (this.loadOk == this.queue.length && !this.multiThreading) {//一个一个上传
+      this._upload(this.queue[0],towho);
     }
-    if (this.multiThreading) {
-      this._upload(file);
+    if (this.multiThreading) {//如果是并行上传的话
+      this._upload(file,towho);
     }
   }
 
-  AmazeuiUpload.prototype._readerFile = function(file) {
+  AmazeuiUpload.prototype._readerFile = function(file,towho) {
     var _this = this;
     var reader = new FileReader();
     reader.addEventListener('load', function(e) {
-      _this._switchModel(file, e);
+      _this._switchModel(file, e, towho);
     }, false);
     reader.readAsDataURL(file);
   }
@@ -388,19 +397,19 @@
       return null;
     }
     //切换文件处理方式
-  AmazeuiUpload.prototype._switchModel = function(file, e) {
+  AmazeuiUpload.prototype._switchModel = function(file, e, towho) {
     if (this.useDefTemplate) {
-      this._setTableModelData(file);
+      this._setTableModelData(file,towho);
     } else {
       var type = !file.type ? 'other' : file.type.split('/')[1];
       if (type == 'jpg' || type == 'jpeg' || type == 'png' || type == 'gif' || type == 'bmp' || type == 'x-icon') {
-        this._getImageInfo(file, e);
+        this._getImageInfo(file, e,towho);
       } else {
-        this._setOtherCardModelData(file);
+        this._setOtherCardModelData(file,towho);
       }
     }
   }
-  AmazeuiUpload.prototype._setOtherCardModelData = function(file) {
+  AmazeuiUpload.prototype._setOtherCardModelData = function(file,towho) {
     var data = {};
     data.file = file;
     data.fileSize = this.amazeuiUploadDelegateEvent.calculationSize(file.size);
@@ -414,22 +423,25 @@
     }
     this.loadOk++;
     if (this.loadOk == this.queue.length && !this.multiThreading) {
-      this._upload(this.queue[0]);
+      this._upload(this.queue[0],towho);
     }
     if (this.multiThreading) {
-      this._upload(file);
+      this._upload(file,towho);
     }
   }
-  AmazeuiUpload.prototype._getImageInfo = function(file, image) {
+  AmazeuiUpload.prototype._getImageInfo = function(file, image,towho) {
       var _this = this;
       var img = new Image();
       img.src = image.target.result;
       img.addEventListener('load', function(e) {
-        _this._setImageCardModelData(file, image, img);
+        _this._setImageCardModelData(file, image, img,towho);
       }, false);
     }
     //上传文件
-  AmazeuiUpload.prototype._upload = function(file) {
+  /**
+   * 这里我自己添加了一个参数，towho，要通过select下拉列表获取
+   */
+  AmazeuiUpload.prototype._upload = function(file,towho) {
       var _this = this;
       file.stage = 'uploading';
       _this._stageChange(file);
@@ -444,11 +456,14 @@
       }
       xhr.addEventListener('readystatechange', function() {
         if (xhr.readyState == 4 && xhr.status == 200) {
-          if (!_this.multiThreading) {
+          if (!_this.multiThreading) {//一个一个上传
             if (_this.queue.length > 1) {
-              _this.queue.shift();
+            	console.log("移除前");
+              console.log(_this.queue.shift());
+              console.log("移除后");
+              console.log(_this.queue);
               _this.loadOk--;
-              _this._upload(_this.queue[0]);
+              _this._upload(_this.queue[0],towho);
             }
           }
           file.responseText = xhr.responseText;
@@ -457,6 +472,7 @@
       }, false);
       var formData = new FormData();
       formData.append('file', file);
+      formData.append('towho', towho);
       xhr.send(formData);
       _this.startTime = new Date().getTime();
     }
@@ -516,6 +532,7 @@
     if (!data) data = {};
     data.id = this.attr('id');
     data.context = this;
+//    console.log("$.fn.AmazeuiUpload  "+data);
     return new AmazeuiUpload(data).init();
   };
 

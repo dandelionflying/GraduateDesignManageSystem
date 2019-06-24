@@ -8,14 +8,14 @@
 var AmazeuiUploadDelegateTemplate = function AmazeuiUploadDelegateTemplate(useDefTemplate) {
   this.useDefTemplate = useDefTemplate;
 }
-
+//初始化模板
 AmazeuiUploadDelegateTemplate.prototype.init = function() {
-  if (this.useDefTemplate) {
+  if (this.useDefTemplate) {//是否使用表格模式
     this.initTableTemplate();
   }
   return this;
 }
-
+//初始化文件选择区域
 AmazeuiUploadDelegateTemplate.prototype.initContext = function() {
   var context = '<div class="am-form-group am-form-file am-upload-toggleBoarder">\
     <button type="button" class="am-btn am-btn-primary am-btn-xs">\

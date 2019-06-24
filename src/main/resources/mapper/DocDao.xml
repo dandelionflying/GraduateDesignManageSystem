@@ -14,6 +14,7 @@
 		<result column="CLASSIFY" jdbcType="VARCHAR" property="classify" />
 		<result column="DOC_TYPE" jdbcType="VARCHAR" property="docType" />
 		<result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+		<result column="STATE" jdbcType="INTEGER" property="state" />
 	</resultMap>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from docs
@@ -26,23 +27,24 @@
 		DOC_URL = #{docUrl,jdbcType=VARCHAR},
 		CLASSIFY = #{classify,jdbcType=VARCHAR},
 		DOC_TYPE = #{docType,jdbcType=VARCHAR},
-		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP}
+		CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+		STATE = #{STATE,jdbcType=INTEGER}
 		where ID = #{id,jdbcType=INTEGER}
 	</update>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
 		resultMap="BaseResultMap">
-		select ID, UID, DOC_NAME, DOC_URL, CLASSIFY, DOC_TYPE, CREATE_TIME
+		select ID, UID, DOC_NAME, DOC_URL, CLASSIFY, DOC_TYPE, CREATE_TIME, STATE
 		from docs
 		where ID = #{id,jdbcType=INTEGER}
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap">
-		select ID, UID, DOC_NAME, DOC_URL, CLASSIFY, DOC_TYPE, CREATE_TIME
+		select ID, UID, DOC_NAME, DOC_URL, CLASSIFY, DOC_TYPE, CREATE_TIME,STATE
 		from docs
 	</select>
 	<insert id="insert" parameterType="com.running4light.gdms.pojo.Docs">
 		insert into docs
-		(uid,doc_name,doc_url,classify,doc_type,create_time)
-		values(#{uid},#{docName},#{docUrl},#{classify},#{docType},#{createTime});
+		(uid,doc_name,doc_url,classify,doc_type,create_time,state)
+		values(#{uid},#{docName},#{docUrl},#{classify},#{docType},#{createTime},#{state});
 	</insert>
 
 	<select id="getDocsBySid" parameterType="string"
@@ -52,5 +54,77 @@
 	<select id="queryUrlById" resultType="java.lang.String">
 		select doc_url from docs
 		where id = #{docId};
+	</select>
+	<select id="selectAllPage" resultMap="BaseResultMap" parameterType="map">
+	    select ID, UID, DOC_NAME, DOC_URL, CLASSIFY, DOC_TYPE, CREATE_TIME, STATE
+		from docs
+		limit #{index},#{page}
+	</select>
+	<select id="selectCount" resultType="java.lang.Integer">
+	    select count(*)
+		from docs
+	</select>
+	<select id="getByUidAndClassify" parameterType="map" resultMap="BaseResultMap">
+	    select * from docs
+	    where UID = #{uid} and
+	    CLASSIFY = (select name from fileclassify where id = #{classify})
+	</select>
+	<select id="getWithTeachername" parameterType="java.lang.String" resultMap="BaseResultMap">
+	    select ID,UID,DOC_NAME,CLASSIFY,STATE 
+	    from docs 
+	    where uid in (select s_id from st where teacher_name =#{teachername});
+	</select>
+	<update id="updateStateByPrimaryKey" parameterType="java.lang.Integer">
+	    update docs set state = #{state} where ID = #{docId}
+	</update>
+	<select id="selectByUidAndClassify" parameterType="java.util.List" resultMap="BaseResultMap">
+		select ID,UID,DOC_NAME,CLASSIFY,STATE
+		from docs
+		where uid in
+		<foreach collection="uids" item="uid" open="(" separator=","
+			close=")">
+			#{uid}
+		</foreach>
+		and classify in
+		<foreach collection="classify" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</select>
+	<select id="selectByClassify" parameterType="java.util.List" resultMap="BaseResultMap">
+		select ID,UID,DOC_NAME,CLASSIFY,STATE
+		from docs
+		where UID in (select ID from student where CLASS_NAME = (select CLASS_NAME from teacherclass where U_ID = #{uid}))
+		and classify in
+		<foreach collection="classify" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+	</select>
+	<select id="selectByClassifys" parameterType="java.util.List" resultMap="BaseResultMap">
+		select ID,UID,DOC_NAME,CLASSIFY,CREATE_TIME,STATE
+		from docs
+		where classify in
+		<foreach collection="classifys" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+		limit #{index},#{page}
+	</select>
+	<select id="countByClassifys" parameterType="java.util.List" resultType="java.lang.Integer">
+		select count(*)
+		from docs
+		where classify in
+		<foreach collection="classifys" item="item" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+		
+	</select>
+	<select id="getWithTeacherAndClass" parameterType="java.lang.String" resultMap="BaseResultMap">
+	    select ID,UID,DOC_NAME,CLASSIFY,STATE
+		from docs
+		where UID in 
+		(select ID from student where CLASS_NAME = (select CLASS_NAME from teacherclass where U_ID = #{uid}))
 	</select>
 </mapper>

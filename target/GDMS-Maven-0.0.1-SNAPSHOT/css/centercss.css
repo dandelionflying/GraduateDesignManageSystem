@@ -1,0 +1,17 @@
+body{
+	background-color: #edece3;
+}
+#leftbar1{
+
+}
+.leftli{
+	background-color: #303030;
+	border-radius: 5px;
+	color: white;
+}
+th{
+border:1px solid #DCDCDC;
+}
+td{
+	border:1px solid #DCDCDC;
+}

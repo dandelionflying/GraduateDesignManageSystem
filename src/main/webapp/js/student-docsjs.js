@@ -5,72 +5,139 @@ function downloadFile(docId){
 		
 	});
 }
-function show_or_hide(id){
-	$(".docdiv").hide(1000);
-	$("#docdiv"+id).show(1000);
-}
 function changelabel(li){
 	$(".type-label").text(li);
 }
-window.onload = function() {
-	
-	$.ajax({
-		type : "get",
-		url : "fileclassify/fileclassify.action",
-		conentType : "application/json",
-		success : function(data){
-			var parent = $("#file-classify-menu");
-			var dropdown = $(".dropdown-menu");
-			$.each(data,function(i,item){
-				parent.append($("<li class='leftli' id='leftli"+item.id+"' onclick='show_or_hide("+item.id+")'><a href='javascript:void(0)'>"+item.name+"</a></li>"));
-				dropdown.append($("<li role='presentation' id='classify"
-						+item.id+"'><a id='classify-a"
-						+item.id
-						+"' role='menuitem' tabindex='-1' href='javascript:void(0)'>"
-						+item.name+"</a></li>"));
-			});
-		}
-	});
+//发送请求获取文档
+function getdocs(id,classify){
+	$(".leftli").css("background-color","#303030");
+	$("#leftli"+classify).css("background-color","#ffffff");
 	$.ajax({
 		type :"get",
-		url : "file/mydocument",
+		url : "mydocument/"+id+"/"+classify,
 		contentType : "application/json",
-		success : function(data){
-			console.log(data);
-			var parent = $(".docdivs");
-			$.each(data,function(i,item){
-				
-				
-				
-			});
+		success : function(result){
+			console.log(result);
+			//显示文档信息
+			appendDataToTable(result,classify);
+			
 		}
 	});
-	$("#classify1").click(function(){
-		console.log($("#classify-a1").text());
-		$(".type-label").text($("#classify-a1").text());
+}
+//显示文档信息
+function appendDataToTable(result,classifyid){
+	var $parent = $("#doc-body");
+	$parent.empty();
+	if(result.status){
+		var data = result.data;
+		var classify = data.classify;
+		var date = timeFormatter(data.createTime);
+		var $inner = $("<tr class='success'>" +
+				"<td>"+data.docName+"</td>" +
+				"<td>"+date+"</td>" +
+				"<td>"+classify+"</td>" +
+				"<td>"+(data.state==2?'定稿':'已提交')+"</td>" +
+				"<td><a class='btn btn-xs btn-info' href='downloadDoc?id="+data.id+"'>查看</a>" +
+				"</td>" +
+			"</tr>");
+		$("#doc-type").html(classify);
+		$parent.append($inner);
+		if(data.state==2)
+			$("#btn-delete").attr("disabled","disabled");
+	}else{
+		
+		$("#doc-type").html(result.data);
+		$parent.append("暂无文档");
+	}
+	
+	//如果上一个文档还没审核通过就不能上传本文档
+	checkStateString(classifyid);
+	
+}
+//发送请求获取所有文档分类
+function getclassify(uid){
+	$.ajax({
+		type : "get",
+		url : "fileclassify.action",
+		conentType : "application/json",
+		success : function(result){
+			//显示分类
+			appendLeft(result,uid);
+		}
+	});
+}
+//显示分类
+function appendLeft(result,uid){
+	var parent = $("#file-classify-menu");
+	var dropdown = $(".dropdown-menu");
+	$.each(result.data,function(i,item){
+		parent.append($("<li class='leftli' id='leftli"+item.id+"' onclick='getdocs("+uid+","+(i+1)+")'><a href='javascript:void(0)'>"+item.name+"</a></li>"));
+		dropdown.append($("<li role='presentation' id='classify"
+				+item.id+"'><a id='classify-a"
+				+item.id
+				+"' role='menuitem' tabindex='-1' href='javascript:void(0)'>"
+				+item.name+"</a></li>"));
+	});
+}
+//获取代表文档状态的数组
+function checkStateString(classifyid){
+	
+	$.ajax({
+		type : "GET",
+		url : "getStates",
+		success : function(result){
+			console.log(classifyid);
+			if(!result.status){
+				$(".open-upload-modal").attr("disabled","disabled");
+			}else{
+				var states = result.data;
+				if(classifyid>1){
+					
+					if(states[classifyid-2]!=2){
+						$(".open-upload-modal").attr("disabled","disabled");
+					}else{
+						if(states[classifyid-1]!=2){
+							$(".open-upload-modal").removeAttr("disabled");
+						}
+					}
+				}else{
+					if(states[0]==2){
+						$(".open-upload-modal").attr("disabled","disabled");
+					}else{
+						
+						$(".open-upload-modal").removeAttr("disabled");
+					}
+				}
+			}
+			
+		}
+	});
+}
+
+window.onload = function() {
+	var uid;
+	$.ajax({
+	    type: 'HEAD', // 获取头信息，type=HEAD即可
+	    url : window.location.href,
+	    complete: function( xhr,data ){
+	        // 获取相关Http Response header
+	        console.log(xhr.getAllResponseHeaders());
+	        uid = xhr.getResponseHeader("uid");
+	        
+	        getdocs(uid,1);
+	        getclassify(uid);
+	    }
 	});
 	
-	$("#classify2").click(function(){
-		$(".type-label").text($("#classify-a2").text());
-	});
-	$("#classify3").click(function(){
-		$(".type-label").text($("#classify-a3").text());
-	});
-	$("#classify4").click(function(){
-		$(".type-label").text($("#classify-a4").text());
-	});
-	$("#classify5").click(function(){
-		$(".type-label").text($("#classify-a5").text());
-	});
-	$("#classify6").click(function(){
-		$(".type-label").text($("#classify-a6").text());
-	});
-	$("#classify7").click(function(){
-		$(".type-label").text($("#classify-a7").text());
-	});
+	
 	$("#open-upload-modal").click(function(){
 		docType=$("#doc-type").text();
+		$("#upload-doc").on('hidden.bs.modal',function(){
+			getdocs(uid,docType);
+		});
 	});
+	
+	
 	$('#upload-file').fileinput({//初始化上传文件框
 		//showUpload : false,
 		//showRemove : false,

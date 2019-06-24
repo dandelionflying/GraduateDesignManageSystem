@@ -1,0 +1,13 @@
+body{
+	background-color: #edece3;
+}
+td{
+	border:1px solid #DCDCDC;
+}
+tr{
+	height: 40px;
+    text-align: center;
+}
+.p-password {
+	color : red;
+}

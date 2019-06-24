@@ -13,11 +13,13 @@ public interface StService {
 
     int updateByPrimaryKey(St record);
 
-	int insert(String sid, String studentName, String topicId, String topicName);
+	int insert(String sid, String studentName, String topicId, String topicName, String teacherName);
 
 	List<St> queryBySid(String key);
 
 	List<St> queryPage(Integer index, Integer page);
 	
 	Integer countst();
+	
+	List<String> queryUidByTeachername(String teacherName);
 }

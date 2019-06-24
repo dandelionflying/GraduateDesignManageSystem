@@ -7,45 +7,40 @@
 <head>
 <meta charset="UTF-8">
 <title>文档</title>
+<link rel="icon" type="image/png" href="../resource/i/favicon.png">
 <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- <script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script> -->
-<script src="${pageContext.request.contextPath}//js/fileinput.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/fileinput.min.js"></script> --%>
+<script src="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/js/fileinput.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/zh.js" type="text/javascript"></script>
 <script src="${pageContext.request.contextPath}/js/student-docsjs.js" type="text/javascript"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/centercss.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/documentcss.css">
 <link href="https://cdn.bootcss.com/bootstrap-fileinput/4.4.8/css/fileinput.min.css" rel="stylesheet">
-
+<script src="${pageContext.request.contextPath}/js/common.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="headbar navbar navbar-fixed-top navbar-inverse"
 		id="headbar1" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" href="javascript:void(0)">毕业设计管理系统</a>
 				
-				<ul class="dropdown-menu" role="menu"
-						aria-labelledby="dropdownMenu1">
-					
-					<li role="presentation" id="type1"><a id="type-a1" role="menuitem" tabindex="-1" href="loginout">
-					<span class="glyphicon glyphicon-log-out"></span> 注销用户</a></li>
-				</ul>
+				<a class="navbar-brand dropdown-toggle" href="javascript:void(0)">毕业综合实训管理系统</a>
+				
 			</div>
 			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav" id="nave-left">
 					<li><a href="studentcenter"><span class="glyphicon glyphicon-home"></span> 主页</a></li>
+					<li><a href="mytopic"><span class="glyphicon glyphicon-leaf"></span> 我的课题</a></li>
 					<li><a href="st"><span class="glyphicon glyphicon-list"></span> 选题</a></li>
 					<li><a href="document"><span class="glyphicon glyphicon-folder-open"></span> 文档</a></li>
-					<li><a href="schedule"><span class="glyphicon glyphicon-align-left"></span> 进度</a></li>
+					<li><a href="mubanfiles"><span class="glyphicon glyphicon-book"></span> 模板文件</a></li>
+					<li><a href="notices"><span class="glyphicon glyphicon-envelope"></span> 通知公告</a></li>
 					<li><a href="stu-info"><span class="glyphicon glyphicon-user"></span> 个人信息</a></li>
+				</ul>
+				<ul class="nav navbar-nav" id="nav-right" style="float:right">
+					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
 				</ul>
 			</div>
 		</div>
@@ -61,190 +56,30 @@
 			<div class="docdivs">
 				<!-- 开题报告div -->
 				<div class="docdiv" id="docdiv1">
+					
 					<table class="table">
 						<thead>
 							<tr class="active">
 								<th>文件名</th>
 								<th>上传日期</th>
 								<th>文件类型</th>
+								<th>状态</th>
 								<th>操作</th>
 							</tr>
 						</thead>
-						<c:if test="${docs['开题报告']!=null}">
-						<tbody>
-							<tr class="success">
-								<td><c:out value="${docs['开题报告']['docName']}"/></td>
-								<td><c:out value="${docs['开题报告']['createTime']}"/></td>
-								<td><c:out value="${docs['开题报告']['docType']}"/></td>
-								
-								<td>
-									<a class="btn btn-xs btn-success" href="download?id=${docs['开题报告']['id']}">查看</a>
-									<button class="btn btn-xs btn-success">删除</button>
-									<button class="btn btn-xs btn-success">查看教师指导</button>
-								</td>
-							</tr>
+						<tbody id="doc-body">
+							
 						</tbody>
-						</c:if>
 					</table>
-				</div>
-				<!-- 项目计划书div -->
-				<div class="docdiv" id="docdiv2">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<th>文件名</th>
-								<th>上传日期</th>
-								<th>文件类型</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<c:if test="${docs['项目计划书']!=null}">
-						<tbody>
-							<tr class="success">
-								<td><c:out value="${docs['项目计划书']['docName']}"/></td>
-								<td><c:out value="${docs['项目计划书']['createTime']}"/></td>
-								<td><c:out value="${docs['项目计划书']['docType']}"/></td>
-								<td>
-									<a class="btn btn-xs btn-success" href="download?id=${docs['项目计划书']['id']}">查看</a>
-									<button class="btn btn-xs btn-success">删除</button>
-									<button class="btn btn-xs btn-success">查看教师指导</button>
-								</td>
-							</tr>
-						</tbody>
-						</c:if>
-					</table>
-				</div>
-				<!-- 周志div -->
-				<div class="docdiv" id="docdiv3">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<th>文件名</th>
-								<th>上传日期</th>
-								<th>文件类型</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<c:if test="${docs['周志']!=null}">
-						<tbody>
-							<tr class="success">
-								<td><c:out value="${docs['周志']['docName']}"/></td>
-								<td><c:out value="${docs['周志']['createTime']}"/></td>
-								<td><c:out value="${docs['周志']['docType']}"/></td>
-								<td>
-									<a class="btn btn-xs btn-success" href="download?id=${docs['周志']['id']}">查看</a>
-									<button class="btn btn-xs btn-success">删除</button>
-									<button class="btn btn-xs btn-success">查看教师指导</button>
-								</td>
-							</tr>
-						</tbody>
-						</c:if>
-					</table>
-				</div>
-	
-				<!-- 中期检查报告div -->
-				<div class="docdiv" id="docdiv4">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<th>文件名</th>
-								<th>上传日期</th>
-								<th>文件类型</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<c:if test="${docs['中期检查表']!=null}">
-						<tbody>
-							<tr class="success">
-								<td><c:out value="${docs['中期检查表']['docName']}"/></td>
-								<td><c:out value="${docs['中期检查表']['createTime']}"/></td>
-								<td><c:out value="${docs['中期检查表']['docType']}"/></td>
-								<td>
-									<a class="btn btn-xs btn-success" href="download?id=${docs['中期检查表']['id']}">查看</a>
-									<button class="btn btn-xs btn-success">删除</button>
-									<button class="btn btn-xs btn-success">查看教师指导</button>
-								</td>
-							</tr>
-						</tbody>
-						</c:if>
-					</table>
-				</div>
-				<!-- 毕业设计报告div -->
-				<div class="docdiv" id="docdiv5">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<th>文件名</th>
-								<th>上传日期</th>
-								<th>文件类型</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<c:if test="${docs['毕业设计报告']!=null}">
-						<tbody>
-							<tr class="success">
-								<td><c:out value="${docs['毕业设计报告']['docName']}"/></td>
-								<td><c:out value="${docs['毕业设计报告']['createTime']}"/></td>
-								<td><c:out value="${docs['毕业设计报告']['docType']}"/></td>
-								<td>
-									<a class="btn btn-xs btn-success" href="download?id=${docs['毕业设计报告']['id']}">查看</a>
-									<button class="btn btn-xs btn-success">删除</button>
-									<button class="btn btn-xs btn-success">查看教师指导</button>
-								</td>
-							</tr>
-						</tbody>
-						</c:if>
-					</table>
-				</div>
-				<!-- 毕业论文div -->
-				
-				<div class="docdiv" id="docdiv6">
-					<table class="table">
-						<thead>
-							<tr class="active">
-								<th>文件名</th>
-								<th>上传日期</th>
-								<th>文件类型</th>
-								<th>操作</th>
-							</tr>
-						</thead>
-						<c:if test="${docs['毕业论文']!=null}">
-						<tbody>
-							<tr class="success">
-								<td><c:out value="${docs['毕业论文']['docName']}"/></td>
-								<td><c:out value="${docs['毕业论文']['createTime']}"/></td>
-								<td><c:out value="${docs['毕业论文']['docType']}"/></td>
-								<td>
-									<a class="btn btn-xs btn-success" href="download?id=${docs['毕业论文']['id']}">查看</a>
-									<button class="btn btn-xs btn-success">删除</button>
-									<button class="btn btn-xs btn-success">查看教师指导</button>
-								</td>
-							</tr>
-						</tbody>
-						</c:if>
-					</table>
+					
 				</div>
 			</div>
+			
+			
 			<div class="uploaddiv">
 				<label></label>
-				<label class="type-label" id="doc-type"></label>
-				<div class="btn-group">
-					<button type="button" class="btn btn-success btn-xs">选择</button>
-					<button type="button" class="btn btn-success btn-xs dropdown-toggle"
-						id="dropdownMenu1" data-toggle="dropdown">
-						<span class="caret"></span> <span class="sr-only"></span>
-					</button>
-					<ul class="dropdown-menu" role="menu"
-						aria-labelledby="dropdownMenu1">
-						<li role="presentation" class="dropdown-header">类型选择</li>
-						<!-- <li role="presentation" id="classify1"><a id="classify-a1" role="menuitem" tabindex="-1" href="javascript:void(0)">开题报告</a></li>
-						<li role="presentation" id="classify2"><a id="classify-a2" role="menuitem" tabindex="-1" href="javascript:void(0)">项目计划书</a></li>
-						<li role="presentation" id="classify3"><a id="classify-a3" role="menuitem" tabindex="-1" href="javascript:void(0)">周志</a></li>
-						<li role="presentation" id="classify4"><a id="classify-a4" role="menuitem" tabindex="-1" href="javascript:void(0)">中期检查表</a></li>
-						<li role="presentation" id="classify5"><a id="classify-a5" role="menuitem" tabindex="-1" href="javascript:void(0)">毕业设计报告</a></li>
-						<li role="presentation" id="classify6"><a id="classify-a6" role="menuitem" tabindex="-1" href="javascript:void(0)">毕业论文</a></li> -->
-					</ul>
-				</div><br><br>
+				<label class="type-label" id="doc-type" hidden></label>
+				
 				<button class="btn btn-lg btn-primary open-upload-modal" data-toggle="modal" data-target="#upload-doc">上传文件</button>
 			</div>
 		</div>
@@ -273,6 +108,14 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<div class="laoding"></div>
+	<script type="text/javascript">
+		$(".laoding").load("../common/loading-modal.html");
+	</script>
+	<div class="footer"></div>
+	<script type="text/javascript">
+		$(".footer").load("../common/footer.html");
+	</script>
 </body>
 </html>

@@ -10,6 +10,9 @@ import com.running4light.gdms.pojo.Topic;
 
 @Repository
 public interface TopicDao {
+	Topic queryById(@Param("id")String id);
+	int updateByPrimaryKey(Topic topic);
+	Integer deleteByPrimaryKey(String id);
 
 	List<Topic> queryAllTopic();
 
@@ -25,11 +28,15 @@ public interface TopicDao {
 	
 	String queryContentById(@Param("topicId") String topicId);
 	
-	List<Topic> queryTopicByTeacherName(@Param("teacherName") String teacherName);
+	List<Topic> queryTopicByTeacherName(Map<String, Object> param);
 
 	String queryTopicNameByStudentId(@Param("id") String id);
 	
-	List<Topic> queryTopicByKey(@Param("key") String key);
+	Topic queryTopicByStudentId(Map<String,Object> param);
+	
+	List<Topic> queryTopicByKey(Map<String,Object> param);
+	
+	Integer countTopicByKey(Map<String,Object> param);
 	
 	List<String> queryTop10Key();
 
@@ -58,4 +65,12 @@ public interface TopicDao {
 	Integer countTopicByTagAndNameAndKey(Map<String,Object> map);
 	
 	Integer countTopicByTagAndName(Map<String,Object> map);
+	
+	Integer countTopicByTeacherName(Map<String, Object> param);
+
+	String queryNameById(Map<String,String> map);
+	
+	String queryTeacherNameById(Map<String,String> map);
+
+	int updateByTag(Integer tag);
 }

@@ -24,4 +24,6 @@ public interface StDao {
 	List<St> queryPage(Map<String, Object> map);
 	
 	Integer countst();
+	
+	List<String> queryUidByTeachername(@Param("teacherName") String teacherName);
 }

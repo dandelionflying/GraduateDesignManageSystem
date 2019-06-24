@@ -1,0 +1,12 @@
+.uploaddiv{
+	background-color: #DCDCDC;
+	height: 170px;
+	width: 100%;
+	border-radius: 10px;
+	
+	text-align: center;
+	padding-top: 55px;
+}
+.searchdiv{
+	margin-bottom: 20px;	
+}

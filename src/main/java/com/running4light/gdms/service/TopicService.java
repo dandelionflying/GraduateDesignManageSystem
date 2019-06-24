@@ -2,20 +2,24 @@ package com.running4light.gdms.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
-
 import com.running4light.gdms.pojo.Topic;
 
 public interface TopicService {
+	Topic queryById(String id);
+	
+	int updateByPrimaryKey(Topic topic);
+	
 	List<Topic> getAllTopics();
 	
 	
 	List<Topic> queryTopicByTag(int tag);
 	
-	List<Topic> getMyTopic(String teacherName);
+	List<Topic> quetyPageMyTeacherName(Integer index,Integer page,String teacherName);
 	
 	
 	List<Topic> queryTopicByName(String topicName);
+	
+	Topic queryTopicByStudentId(String uid);
 	
 	
 	String getContent(String topicId);
@@ -26,8 +30,9 @@ public interface TopicService {
 	String queryTopicNameByStudentId(String id);
 	
 	
-	List<Topic> searchTopicByKey(String key);
+	List<Topic> searchTopicByKey(String key, Integer tag, Integer index, Integer page);
 	
+	Integer countTopicByKey(String key, Integer tag);
 
 	List<String> getTop10HotKeys();
 	
@@ -57,4 +62,14 @@ public interface TopicService {
 	Integer countTopicByTagAndNameAndKey(Integer tag, String key, String classify);
 	
 	Integer countTopicByTagAndName(Integer tag, String key);
+
+	Integer countTopicByTeacherName(String teacherName);
+	
+	String queryNameById(String topicId);
+	
+	String queryTeacherNameById(String topicId);
+	
+	Integer deleteByPrimaryKey(String topicId);
+	
+	int updateByTag(Integer tag);
 }

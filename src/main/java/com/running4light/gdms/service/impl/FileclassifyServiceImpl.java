@@ -1,12 +1,15 @@
 package com.running4light.gdms.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.running4light.gdms.dao.FileclassifyDao;
+import com.running4light.gdms.pojo.DocStateClassify;
 import com.running4light.gdms.pojo.Fileclassify;
 import com.running4light.gdms.service.FileclassifyService;
 @Service
@@ -38,7 +41,24 @@ public class FileclassifyServiceImpl implements FileclassifyService{
 	@Override
 	public int updateByPrimaryKey(Fileclassify record) {
 		int result = fileclassifyDao.updateByPrimaryKey(record);
-		return 0;
+		return result;
+	}
+
+	@Override
+	public String queryNameById(Integer id) {
+		return fileclassifyDao.queryNameById(id);
+	}
+
+	@Override
+	public List<String> selectAllNames() {
+		return fileclassifyDao.selectAllNames();
+	}
+
+	@Override
+	public List<DocStateClassify> selectStateClassify(String uid) {
+		Map<String,Object> param = new HashMap<>();
+		param.put("uid", uid);
+		return fileclassifyDao.selectStateClassify(param);
 	}
 
 }

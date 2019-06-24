@@ -10,11 +10,7 @@
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="css/centercss.css">
 	<link rel="stylesheet" href="css/schedulecss.css">
-	<script>
-		// function jumpdocument() {
-		// 	location.href="document.jsp";
-		// }
-	</script>
+	<script src="${pageContext.request.contextPath}/js/common.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="headbar navbar navbar-fixed-top navbar-inverse" id="headbar1" role="navigation">
@@ -236,6 +232,13 @@
 		
 		
 	</div>
-
+	<div class="laoding"></div>
+	<script type="text/javascript">
+		$(".laoding").load("../common/loading-modal.html");
+	</script>
+	<div class="footer" style=""></div>
+	<script type="text/javascript">
+		$(".footer").load("../common/footer.html");
+	</script>
 </body>
 </html>

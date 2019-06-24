@@ -6,7 +6,11 @@
 	<resultMap id="BaseResultMap" type="com.running4light.gdms.pojo.Manager">
 		<id column="ID" jdbcType="VARCHAR" property="id" />
 		<result column="USERNAME" jdbcType="VARCHAR" property="username" />
-		<result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+	    <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+	    <result column="DEPT_NAME" jdbcType="VARCHAR" property="deptName" />
+	    <result column="SEX" jdbcType="VARCHAR" property="sex" />
+	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+	    <result column="TEL" jdbcType="VARCHAR" property="tel" />
 	</resultMap>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from manager
@@ -14,25 +18,39 @@
 	</delete>
 	<insert id="insert" parameterType="com.running4light.gdms.pojo.Manager">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
-			SELECT LAST_INSERT_ID()
+			SELECT
+			LAST_INSERT_ID()
 		</selectKey>
-		insert into manager (USERNAME, PASSWORD)
-		values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR})
+		insert into manager (USERNAME, PASSWORD, DEPT_NAME,
+		SEX, EMAIL, TEL)
+		values (
+		#{username,jdbcType=VARCHAR}, 
+		#{password,jdbcType=VARCHAR},
+		#{deptName,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR}, 
+		#{email,jdbcType=VARCHAR}, 
+		#{tel,jdbcType=VARCHAR})
 	</insert>
 	<update id="updateByPrimaryKey" parameterType="com.running4light.gdms.pojo.Manager">
 		update manager
-		set USERNAME = #{username,jdbcType=VARCHAR},
-		PASSWORD = #{password,jdbcType=VARCHAR}
+		<trim prefix="set" suffixOverrides=",">
+		    <if test="username!=null">USERNAME=#{username},</if>
+		    <if test="password!=null">PASSWORD=#{password},</if>
+		    <if test="deptName!=null">DEPT_NAME=#{deptName},</if>
+		    <if test="sex!=null">SEX=#{sex},</if>
+		    <if test="email!=null">EMAIL=#{email},</if>
+		    <if test="tel!=null">TEL=#{tel},</if>
+		</trim>
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	<select id="selectByPrimaryKey" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
-		select ID, USERNAME, PASSWORD
-		from manager
-		where ID = #{id,jdbcType=VARCHAR}
+		select ID, USERNAME, PASSWORD, DEPT_NAME, SEX, EMAIL, TEL
+	    from manager
+	    where ID = #{id,jdbcType=VARCHAR}
 	</select>
 	<select id="selectAll" resultMap="BaseResultMap">
-		select ID, USERNAME, PASSWORD
+		select ID, USERNAME, PASSWORD, DEPT_NAME, SEX, EMAIL, TEL
 		from manager
 	</select>
 	<select id="queryByIdAndPassword" parameterType="java.lang.String" resultType="com.running4light.gdms.pojo.Manager">
@@ -44,5 +62,8 @@
 	    select password
 	    from manager
 	    where ID = #{id}
+	</select>
+	<select id="getEmailById" resultType="java.lang.String" parameterType="java.lang.String">
+	    select EMAIL from manager where ID = #{uid}
 	</select>
 </mapper>

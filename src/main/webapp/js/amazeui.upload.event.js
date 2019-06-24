@@ -76,6 +76,7 @@ AmazeuiUploadDelegateEvent.prototype.writeValue = function(data) {
   obj.template = template;
   return obj;
 }
+//计算文件大小
 AmazeuiUploadDelegateEvent.prototype.calculationSize = function(size) {
   var filesize = size;
   if (filesize >= 1073741824) {
@@ -95,12 +96,17 @@ AmazeuiUploadDelegateEvent.prototype.calculationFileType = function(file) {
   return type;
 }
 AmazeuiUploadDelegateEvent.prototype.initEvent = function(tr, fileID) {
+//	console.log(tr);
+	console.log(fileID);
+	
   var that = this;
   if (tr != null && tr != undefined) {
     tr.find('.am-icon-remove').parent().on('click', function() {
       $(tr).addClass("selectDelete").hide();
     }).show();
-    if (fileID != null && fileID != undefined && fileID.length > 0) {
+//    console.log(fileID.length);
+    //if (fileID != null && fileID != undefined && fileID.length > 0) {
+    if (fileID != null && fileID != undefined) {
       tr.find('.am-icon-download').parent().on('click', function() {
         that.downloadFile(fileID);
       }).show();
@@ -109,8 +115,9 @@ AmazeuiUploadDelegateEvent.prototype.initEvent = function(tr, fileID) {
 }
 
 AmazeuiUploadDelegateEvent.prototype.downloadFile = function(fileID) {
-  if (fileID != null && fileID != undefined && fileID.length > 0) {
-    var fileRequestUrl = this.url + "?store=" + fileID;
+	//if (fileID != null && fileID != undefined && fileID.length > 0) {
+  if (fileID != null && fileID != undefined) {
+    var fileRequestUrl = this.url + "?id=" + fileID;
     var content = this.getContent();
     content.find('iframe').remove();
     var downloadAction = $("<iframe style='display:none'></iframe>").attr({

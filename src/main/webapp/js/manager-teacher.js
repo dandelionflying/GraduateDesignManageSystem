@@ -13,11 +13,15 @@ function changepage(i){
 				var tr = $("<tr></tr>");
 				var td1 = $("<td>"+item.id+"</td>");
 				var td2 = $("<td>"+item.username+"</td>");
-				var td3 = $("<td class='am-hide-sm-only'>"+item.deptId+"</td>");
+				var td3 = $("<td class='am-hide-sm-only'>信息科学与工程学院</td>");
 				var td4 = $("<td class='am-hide-sm-only'>"+item.rank+"</td>");
 				var td5 = $("<td class='am-hide-sm-only'>"+item.tel+"</td>");
 				var td6 = $("<td class='am-hide-sm-only'>"+item.email+"</td>");
-				var td7 = $("<td></td>");
+				var td7 = $("<td id='item-role-"+i+"'>" +
+						"<p id='item-role-p-"+i+"'>"+item.identity+"</p> <button id='modify-btn-"+i+"' class='am-btn am-btn-default am-text-success am-btn-round am-btn-xs'>修改</button>" +
+								"<button id='item-role-ok-"+i+"' class='am-btn am-btn-default am-text-success am-btn-round am-btn-xs' style='display:none'>提交</button>" +
+								"<button id='item-role-cancel-"+i+"' class='am-btn am-btn-default am-text-danger am-btn-round am-btn-xs' style='display:none'>取消</button>" +
+								"</td>");
 				tr.append(td1);
 				tr.append(td2);
 				tr.append(td3);
@@ -26,6 +30,8 @@ function changepage(i){
 				tr.append(td6);
 				tr.append(td7);
 				tbody.append(tr);
+				$("#modify-btn-"+i).attr('onclick',"showInput('"+item.id+"',"+i+",'"+item.identity+"')");
+				
 			});
 			var pageul = $("#pagination-id");
 			pageul.empty();
@@ -52,6 +58,99 @@ function changepage(i){
 		
 	});
 }
+/* */
+function cancel(identity,i,uid){
+	var $roletd = $("#item-role-"+i);
+	var $p = $("#item-role-p-"+i);
+	$p.html(identity);
+	$("#item-role-ok-"+i).hide();
+	$("#item-role-cancel-"+i).hide();
+	$("#new-role-"+i).hide();
+	$("#modify-btn-"+i).show();
+}
+/*
+ * 显示输入框*/
+function showInput(uid,i,identity){
+	var $roletd = $("#item-role-"+i);
+	var p = $("#item-role-p-"+i);
+	$("#modify-btn-"+i).hide();
+	p.empty();
+	p.html("<input type='text' id='new-role-"+i+"' class='form-control' placeholder='输入角色名' value='"+identity+"'>");
+	
+	var $btnsubmit = $("#item-role-ok-"+i);
+	var $btncancel = $("#item-role-cancel-"+i);
+	$btnsubmit.show();
+	$btncancel.show();
+	
+	$("#new-role-"+i).on('blur',function(){
+		if($(this).val()=="普通教师" || $(this).val()=="评阅教师" || $(this).val()=="答辩评审员"){
+			$btnsubmit.removeAttr("disabled","disabled");
+			$(this).css("border-color","#ccc");
+			
+		}else{
+			$(this).css("border-color","red");
+			$btnsubmit.attr("disabled","disabled");
+			alert("教师角色只能在‘评阅教师’、‘指导教师’和‘答辩评审员’之中选择");
+		}
+	})
+	$btncancel.on('click',function(){
+		cancel(identity,i,uid);
+	});
+	$btnsubmit.on('click',function(){
+		var role = $("#new-role-"+i).val();
+		changeRole(uid,i,role);
+	});
+}
+function changeRole(uid,i,role){
+	$.ajax({
+		type : "POST",
+		url : "updateTeacherRole",
+		data : {
+			"uid" : uid,
+			"rolename" : role
+		},
+		success : function(result){
+			if(!result.status){
+				alert(result.message);
+			}else{
+				alert(result.message);
+				cancel(role,i,uid);
+			}
+		}
+	})
+}
 window.onload = function(){
+	
 	changepage(0);
+	$("#add-teacher-btn").on("click",function(){
+		$("#add-teacher-modal").modal("open");
+	});
+	$("#commit-excel").on('click',function(){
+		var fileDir = $("#newteachers").val();  
+	    var suffix = fileDir.substr(fileDir.lastIndexOf("."));  
+	    if("" == fileDir){  
+	        $("#warning-msg").html("选择需要导入的Excel文件！");
+	    }else if(".xls" != suffix && ".xlsx" != suffix ){  
+	        $("#warning-msg").html("选择Excel格式的文件导入！");
+	    }else{
+	    	var formData = new FormData();
+	    	formData.append("file",$("#newteachers")[0].files[0]);
+	    	$.ajax({
+	    		type : "POST",
+	    		url : "add-teachers",
+	    		data : formData,
+	    		contentType: false,
+	    		processData: false,
+	    		success : function(result){
+	    			if(result.status){
+	    				alert(result.message);
+	    				window.location.reload();
+	    			}else{
+	    				alert(result.message);
+	    			}
+	    		}
+	    	});
+	    }
+		
+	});
 }

@@ -14,30 +14,51 @@
 	    <result column="RANK" jdbcType="VARCHAR" property="rank" />
 	    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
 	</resultMap>
+	<resultMap id="StudentResultMap" type="com.running4light.gdms.pojo.StudentResult">
+		<id column="ID" jdbcType="VARCHAR" property="id" />
+		<result column="USERNAME" jdbcType="VARCHAR" property="username" />
+		<result column="PASSWORD" jdbcType="VARCHAR" property="password" />
+		<result column="ENTER_YEAR" jdbcType="VARCHAR" property="enterYear" />
+		<result column="CLASS_NAME" jdbcType="VARCHAR" property="className" />
+		<result column="MAYOR" jdbcType="VARCHAR" property="mayor" />
+		<result column="DEPT_ID" jdbcType="SMALLINT" property="deptId" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="TEL" jdbcType="VARCHAR" property="tel" />
+	    <result column="TOPIC_NAME" jdbcType="VARCHAR" property="topicName" />
+	</resultMap>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from teacher
 		where ID = #{id,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="com.running4light.gdms.pojo.Teacher">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.String">
-			SELECT LAST_INSERT_ID()
+			SELECT
+			LAST_INSERT_ID()
 		</selectKey>
-		insert into teacher (USERNAME, PASSWORD, DEPT_ID,
+		insert into teacher (ID, USERNAME, PASSWORD, DEPT_ID,
 		IDENTITY, SEX, TEL)
-		values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
+		values (
+		#{id,jdbcType=VARCHAR}, 
+		#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
 		#{deptId,jdbcType=TINYINT},
-		#{identity,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR})
+		#{identity,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
+		#{rank,jdbcType=VARCHAR}, 
+		#{email,jdbcType=VARCHAR}
+		)
 	</insert>
 	<update id="updateByPrimaryKey" parameterType="com.running4light.gdms.pojo.Teacher">
 		update teacher
-	    set USERNAME = #{username,jdbcType=VARCHAR},
-	      PASSWORD = #{password,jdbcType=VARCHAR},
-	      DEPT_ID = #{deptId,jdbcType=TINYINT},
-	      IDENTITY = #{identity,jdbcType=VARCHAR},
-	      SEX = #{sex,jdbcType=VARCHAR},
-	      TEL = #{tel,jdbcType=VARCHAR},
-	      RANK = #{rank,jdbcType=VARCHAR},
-	      EMAIL = #{email,jdbcType=VARCHAR}
+		<trim prefix="set" suffixOverrides=",">
+		    <if test="password!=null">password=#{password},</if>
+		    <if test="deptId!=null">deptId=#{deptId},</if>
+		    <if test="identity!=null">identity=#{identity},</if>
+		    <if test="sex!=null">sex=#{sex},</if>
+		    <if test="tel!=null">tel=#{tel},</if>
+		    <if test="rank!=null">rank=#{rank},</if>
+		    <if test="email!=null">email=#{email},</if>
+		</trim>
+	    
 	    where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	<select id="selectByPrimaryKey" parameterType="java.lang.String"
@@ -62,11 +83,11 @@
 		#{password};
 	</select>
 	<select id="queryMyStudent" parameterType="string"
-		resultType="com.running4light.gdms.pojo.Student">
-		select * from student where id in (select s_id from st join
+		resultMap="StudentResultMap">
+		select ID,USERNAME,DEPT_ID,ENTER_YEAR,MAYOR,CLASS_NAME,TEL,EMAIL,TOPIC_NAME from student join (select s_id,st.topic_name from st join
 		topic on
 		st.topic_id = topic.id and topic.teacher_name
-		=#{teacherName});
+		=#{teacherName}) as a on student.id = a.s_id;
 	</select>
 	
 	<select id="queryById" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -77,5 +98,43 @@
 	<select id="countTeacher" resultType="java.lang.Integer">
 	    select count(*) from teacher;
 	</select>
-
+	<insert id="insertForeach" parameterType="java.util.List"
+		useGeneratedKeys="false">
+		insert into teacher
+		(
+		ID, USERNAME, PASSWORD, DEPT_ID, IDENTITY, SEX, TEL, RANK, EMAIL)
+		values
+		<foreach collection="list" item="item" index="index"
+			separator=",">
+			(
+			#{item.id,jdbcType=VARCHAR}, 
+			#{item.username,jdbcType=VARCHAR}, 
+			#{item.password,jdbcType=VARCHAR}, 
+			#{item.deptId,jdbcType=TINYINT}, 
+			#{item.identity,jdbcType=VARCHAR}, 
+			#{item.sex,jdbcType=VARCHAR}, 
+			#{item.tel,jdbcType=VARCHAR}, 
+			#{item.rank,jdbcType=VARCHAR}, 
+			#{item.email,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<select id="selectByPrimaryKeys" parameterType="java.util.List" resultType="java.lang.Integer">
+	    select count(*)
+	    from teacher
+	    where 1>2 or id in
+	    <foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item,jdbcType=VARCHAR}
+		</foreach>
+	</select>
+	
+	<select id="queryPswById" parameterType="java.lang.String" resultType="java.lang.String">
+	    select password from teacher where id = #{uid}
+	</select>
+	<update id="updatePassword" parameterType="java.lang.String">
+	    update teacher set password = #{password} where id = #{uid}
+	</update>
+	<select id="getEmailById" parameterType="java.lang.String" resultType="java.lang.String">
+	    select EMAIL from teacher where ID = #{uid}
+	</select>
 </mapper>

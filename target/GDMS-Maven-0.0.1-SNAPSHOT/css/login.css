@@ -1,0 +1,67 @@
+.centerimage{
+	/*overflow: auto;*/
+	position: absolute;
+	width: 552px;
+	height: 320px;
+	top:160px; 
+	left: 340px;
+	display: inline-block;
+}
+.logindiv{
+position: absolute;
+top:150px;
+left: 998px;
+width:290px;
+height: 360px;
+background-color: #ececec;
+border-radius: 5px;
+}
+#loginform{
+	padding: 20px;
+	/* margin-top: 60px; */
+}
+.image{
+margin: 5px;
+/*width: 320px;
+height: 320px;*/
+}
+#img1{
+	width: 150px;
+	height: 155px;
+	border-color: white;
+	border-style: solid;
+
+}
+#img2{
+	width: 270px;
+	height: 155px;
+	border-color: white;
+	border-style: solid;
+}
+#imageUp{
+	text-align: right;
+}
+#imageDown{
+
+}
+#username{
+	width: 225px;
+	height: 35px;
+	background: 0 0;
+	border: none;
+	font-size: 10px;
+	display: inline;
+}
+#password{
+	width: 225px;
+	height: 35px;
+	background: 0 0;
+	border: none;
+	font-size: 10px;
+	display: inline;
+}
+.footercenter{
+	padding-top: 20px;
+	text-align: center;
+	height: 100px;
+}

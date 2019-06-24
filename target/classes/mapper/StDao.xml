@@ -18,9 +18,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into st (TOPIC_ID, TOPIC_NAME, S_ID, 
-      STUDENT_NAME)
+      STUDENT_NAME,TEACHER_NAME)
     values (#{topicId,jdbcType=VARCHAR}, #{topicName,jdbcType=VARCHAR}, #{sId,jdbcType=VARCHAR}, 
-      #{studentName,jdbcType=VARCHAR}), #{teacherName,jdbcType=VARCHAR})
+      #{studentName,jdbcType=VARCHAR}, #{teacherName,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.running4light.gdms.pojo.St">
     update st
@@ -53,5 +53,8 @@
   <select id="countst" resultType="java.lang.Integer">
       select count(*) 
       from st
+  </select>
+  <select id="queryUidByTeachername" parameterType="java.lang.String" resultType="java.lang.String">
+	select s_id from st where teacher_name = #{teacherName}       
   </select>
 </mapper>

@@ -292,7 +292,7 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
     vertical-align: middle;
     margin-top: -5px;
     padding-left: 18px;
-    width: 160px;
+    width: 87px;
 }
 
 .tpl-logo img {
@@ -1227,7 +1227,7 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 }
 
 .task-title {
-    color: #838FA1;
+    /* color: #838FA1; */
     margin-right: 10px;
 }
 
@@ -1408,6 +1408,15 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
 
 .label-warning {
     background-color: #F1C40F!important;
+}
+.label-student {
+	background-color: #00bcd4
+}
+.label-all {
+	background-color: #8bc34a
+}
+.label-teacher {
+	background-color: #ffc107
 }
 
 .tpl-portlet-components {

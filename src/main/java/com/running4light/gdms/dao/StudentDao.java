@@ -12,19 +12,17 @@ public interface StudentDao {
 	
 	int deleteByPrimaryKey(String id);
 
-    int insert(Student record);
-
-    /*Student selectByPrimaryKey(String id);*/
+    int insert(Student student);
 
     /*List<Student> selectAll();*/
 
-    int updateByPrimaryKey(Student record);
+    int updateByPrimaryKey(Student student);
 	// 以注解方式
 //	@Select("select * from " + STUDENT + "where sname = #{loginname} and spassword = #{password}")
 	Student selectByLoginnameAndPassword(@Param("username") String username,
 			@Param("password") String password);
 
-	void insertInfoBatch(List<Student> studentList);
+	int insertInfoBatch(List<Student> studentList);
 
 	List<Student> queryAll();
 	
@@ -33,4 +31,14 @@ public interface StudentDao {
 	int countStudent();
 
 	List<Student> selectPage(Map<String,Object> param);
+	
+	Integer selectByPrimaryKeys(List<String> list);
+	
+	Student selectByPrimaryKey(@Param("uid") String id);
+
+	String queryPswById(@Param("uid") String uid);
+
+	int updatePassword(@Param("uid") String uid, @Param("password") String password);
+
+	String queryEmailById(@Param("uid") String uid);
 }

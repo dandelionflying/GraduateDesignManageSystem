@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>选题</title>
+<link rel="icon" type="image/png" href="../resource/i/favicon.png">
 <link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script>
 <script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -12,47 +13,36 @@
 <script src="${pageContext.request.contextPath}/js/student-stjs.js" type="text/javascript"></script>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/centercss.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/stcss.css">
-
+<script src="${pageContext.request.contextPath}/js/common.js" type="text/javascript"></script>
 </head>
 <body>
 	<div class="headbar navbar navbar-fixed-top navbar-inverse"
 		id="headbar1" role="navigation">
 		<div class="container">
 			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown" href="javascript:void(0)">毕业设计管理系统</a>
 				
-				<ul class="dropdown-menu" role="menu"
-						aria-labelledby="dropdownMenu1">
-					
-					<li role="presentation" id="type1"><a id="type-a1" role="menuitem" tabindex="-1" href="loginout">
-					<span class="glyphicon glyphicon-log-out"></span> 注销用户</a></li>
-				</ul>
+				<a class="navbar-brand dropdown-toggle" href="javascript:void(0)">毕业综合实训管理系统</a>
+				
 			</div>
 			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li><a href="studentcenter"><span
-							class="glyphicon glyphicon-home"></span> 主页</a></li>
-					<li><a href="st"><span class="glyphicon glyphicon-list"></span>
-							选题</a></li>
-					<li><a href="document"><span
-							class="glyphicon glyphicon-folder-open"></span> 文档</a></li>
-					<li><a href="schedule"><span
-							class="glyphicon glyphicon-align-left"></span> 进度</a></li>
-					<li><a href="stu-info"><span
-							class="glyphicon glyphicon-user"></span> 个人信息</a></li>
+				<ul class="nav navbar-nav" id="nave-left">
+					<li><a href="studentcenter"><span class="glyphicon glyphicon-home"></span> 主页</a></li>
+					<li><a href="mytopic"><span class="glyphicon glyphicon-leaf"></span> 我的课题</a></li>
+					<li><a href="st"><span class="glyphicon glyphicon-list"></span> 选题</a></li>
+					<li><a href="document"><span class="glyphicon glyphicon-folder-open"></span> 文档</a></li>
+					<li><a href="mubanfiles"><span class="glyphicon glyphicon-book"></span> 模板文件</a></li>
+					<li><a href="notices"><span class="glyphicon glyphicon-envelope"></span> 通知公告</a></li>
+					<li><a href="stu-info"><span class="glyphicon glyphicon-user"></span> 个人信息</a></li>
+				</ul>
+				<ul class="nav navbar-nav" id="nav-right" style="float:right">
+					<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<div class="container stcenterdiv">
-		<div class="searchdiv col-sm-3">
+		<div class="searchdiv col-sm-2">
 
 				<div class="form-group">
 					<input class="form-control" id="searchWord" placeholder="搜索...">
@@ -69,7 +59,7 @@
 			</div>
 
 		</div>
-		<div class="sttable col-sm-9">
+		<div class="sttable col-sm-10">
 			<table class="table">
 				<thead>
 					<tr class="active">
@@ -85,6 +75,25 @@
 
 				</tbody>
 			</table>
+			<nav aria-label="Page navigation">
+			  <ul class="pagination" id="topic-pagination">
+			   <!--  <li class="disabled">
+			      <a href="#" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>
+			    </li>
+			    <li class="active"><a href="#">1</a></li>
+			    <li><a href="#">2</a></li>
+			    <li><a href="#">3</a></li>
+			    <li><a href="#">4</a></li>
+			    <li><a href="#">5</a></li>
+			    <li>
+			      <a href="#" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>
+			    </li> -->
+			  </ul>
+			</nav>
 		</div>
 	</div>
 	<!-- 课题详情modal -->
@@ -102,5 +111,13 @@
 			</div>
 		</div>
 	</div>
+	<div class="laoding"></div>
+	<script type="text/javascript">
+		$(".laoding").load("../common/loading-modal.html");
+	</script>
+	<div class="footer" style=""></div>
+	<script type="text/javascript">
+		$(".footer").load("../common/footer.html");
+	</script>
 </body>
 </html>

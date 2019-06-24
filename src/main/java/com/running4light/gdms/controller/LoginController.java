@@ -18,12 +18,6 @@ import com.running4light.gdms.service.StudentService;
 @Controller
 public class LoginController {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-	@Autowired
-	private StudentService studentSerivice;
-	
-
-	
-	
 	
 	@RequestMapping(value="/loginout")
 	public ModelAndView loginout(HttpSession session,ModelAndView mv) {

@@ -23,12 +23,13 @@ public class StServiceImpl implements StService {
 	}
 
 	@Override
-	public int insert(String sid, String studentName,String topicId,String topicName) {
+	public int insert(String sid, String studentName,String topicId,String topicName,String teacherName) {
 		St st = new St();
 		st.setsId(sid);
 		st.setStudentName(studentName);
 		st.setTopicId(topicId);
 		st.setTopicName(topicName);
+		st.setTeacherName(teacherName);
 		return stDao.insert(st);
 	}
 
@@ -63,6 +64,11 @@ public class StServiceImpl implements StService {
 	@Override
 	public Integer countst() {
 		return stDao.countst();
+	}
+
+	@Override
+	public List<String> queryUidByTeachername(String teacherName) {
+		return stDao.queryUidByTeachername(teacherName);
 	}
 
 }

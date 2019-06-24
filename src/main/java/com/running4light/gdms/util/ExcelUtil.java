@@ -28,7 +28,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.running4light.gdms.pojo.ExcelBean;
+import com.running4light.gdms.common.ExcelBean;
 import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 public class ExcelUtil {

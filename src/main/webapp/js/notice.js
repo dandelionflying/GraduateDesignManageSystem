@@ -8,7 +8,9 @@ function getnotice(){
 	$.ajax({
 		type : "GET",
 		url : "getnotice",
+		contentType : "application/json",
 		success : function(result){
+			console.log(result);
 			var data = result.data;
 			var $nocticeul = $("#notice-ul");
 			$nocticeul.empty();
@@ -16,8 +18,36 @@ function getnotice(){
 				var time = timeFormatter(item.publishTime)
 				var $li = $("<li><div class='cosB'>"+time+"</div>"+
 						"<div class='cosA'><span class='cosIco'><i class='am-icon-bell-o'></i></span>"+
-						"<span>"+item.content+"</span></div></li>");
+						"<span>"+item.content+"</span></div>" +
+						"<div class='task-config'>" +
+						"<div class='am-dropdown tpl-task-list-dropdown am-active' data-am-dropdown=''>" +
+						"<a href='###' class='am-dropdown-toggle tpl-task-list-hover ' data-am-dropdown-toggle=''>" +
+						"<i class='am-icon-cog'></i> <span class='am-icon-caret-down'></span></a>" +
+						"<ul class='am-dropdown-content tpl-task-list-dropdown-ul' id='dropdown-options-"+i+"'>" +
+						"<li id='del-"+item.id+"'><a href='javascript:;'><i class='am-icon-trash-o'></i> 删除 </a></li>" +
+						"</ul>" +
+						"</div>" +
+						"</div>" +
+						"</li>");
 				$nocticeul.append($li);
+				$("#del-"+item.id).on("click",function(){
+					//删除通知
+					$.ajax({
+						type : "POST",
+						url : "deleteNotice",
+						data : {
+							"id" : item.id
+						},
+						success : function(result){
+							if(result.status){
+								alert(result.message);
+								getnotice();
+							}else{
+								alert(result.message);
+							}
+						}
+					})
+				});
 			});
 			
 		}

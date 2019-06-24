@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.running4light.gdms.common.ExcelBean;
 import com.running4light.gdms.dao.StudentDao;
-import com.running4light.gdms.pojo.ExcelBean;
 import com.running4light.gdms.pojo.Student;
 import com.running4light.gdms.service.FileService;
 import com.running4light.gdms.util.ExcelUtil;

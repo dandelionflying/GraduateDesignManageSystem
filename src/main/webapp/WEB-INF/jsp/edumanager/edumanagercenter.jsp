@@ -27,61 +27,16 @@
 </head>
 <body data-type="index">
 	<header class="am-topbar am-topbar-inverse admin-header">
-        <div class="am-topbar-brand">
-            <a href="javascript:;" class="tpl-logo">
-                <img src="${pageContext.request.contextPath}/resource/img/logo.png" alt="">
-            </a>
-        </div>
-        <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right">
-
-        </div>
-
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
-
-        <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
-
-            <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="am-icon-bell-o"></span> 提醒 <span class="am-badge tpl-badge-success am-round">5</span></span>
-                    </a>
-                    <ul class="am-dropdown-content tpl-dropdown-content">
-                        <li class="tpl-dropdown-content-external">
-                            <h3>你有 <span class="tpl-color-success">5</span> 条提醒</h3><a href="###">全部</a></li>
-                        <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-plus tpl-dropdown-ico-btn-size tpl-badge-success"></span> 【预览模块】移动端 查看时 手机、电脑框隐藏。</a>
-                            <span class="tpl-dropdown-list-fr">3小时前</span>
-                        </li>
-                        <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-check tpl-dropdown-ico-btn-size tpl-badge-danger"></span> 移动端，导航条下边距处理</a>
-                            <span class="tpl-dropdown-list-fr">15分钟前</span>
-                        </li>
-                        <li class="tpl-dropdown-list-bdbc"><a href="#" class="tpl-dropdown-list-fl"><span class="am-icon-btn am-icon-bell-o tpl-dropdown-ico-btn-size tpl-badge-warning"></span> 追加统计代码</a>
-                            <span class="tpl-dropdown-list-fr">2天前</span>
-                        </li>
-                    </ul>
-                </li>
-                
-                <li class="am-hide-sm-only"><a href="javascript:;" id="admin-fullscreen" class="tpl-header-list-link"><span class="am-icon-arrows-alt"></span> <span class="admin-fullText">开启全屏</span></a></li>
-
-                <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
-                    <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="tpl-header-list-user-nick">runnin4light</span><span class="tpl-header-list-user-ico"> <img src="${pageContext.request.contextPath}/resource/img/user01.png"></span>
-                    </a>
-                    <ul class="am-dropdown-content">
-                        <li><a href="#"><span class="am-icon-bell-o"></span> 资料</a></li>
-                        <li><a href="#"><span class="am-icon-cog"></span> 设置</a></li>
-                        <li><a href="#"><span class="am-icon-power-off"></span> 退出</a></li>
-                    </ul>
-                </li>
-                <li><a href="###" class="tpl-header-list-link"><span class="am-icon-sign-out tpl-header-list-ico-out-size"></span></a></li>
-            </ul>
-        </div>
+        
     </header>
-
+	<script type="text/javascript">
+		$(".admin-header").load("../common/manager-header.html");
+	</script>
 	<div class="tpl-page-container tpl-page-header-fixed">
 
 
 		<div class="tpl-left-nav tpl-left-nav-hover">
-			<div class="tpl-left-nav-title">Amaze UI 列表</div>
+			<div class="tpl-left-nav-title">毕业综合实训管理系统</div>
 			<div class="tpl-left-nav-list">
 				<ul class="tpl-left-nav-menu">
 					<li class="tpl-left-nav-item"><a href="edumanagercenter"
@@ -130,13 +85,13 @@
 						</a>
 						<ul class="tpl-left-nav-sub-menu">
 							<li>
-								<a href="">
-									<i class="am-icon-angle-right"></i><span>答辩</span>
+								<a href="application">
+									<i class="am-icon-angle-right"></i><span>答辩处理</span>
 								</a>
 								
 							</li>
 							<li>
-								<a href="">
+								<a href="grade">
 									<i class="am-icon-angle-right"></i><span>成绩管理</span>
 								</a>
 								
@@ -167,19 +122,13 @@
 								<a href="file-muban">
 									<i class="am-icon-angle-right"></i><span>模板文件</span>
 								</a>
-								<a href="">
+								<a href="file-student">
 									<i class="am-icon-angle-right"></i><span>学生文档</span>
 								</a>
 								
 							</li>
 						</ul>
 					</li>
-
-					<li class="tpl-left-nav-item"><a href="login.html"
-						class="nav-link tpl-left-nav-link-list"> <i
-							class="am-icon-key"></i> <span>登录</span>
-
-					</a></li>
 				</ul>
 			</div>
 		</div>
@@ -223,7 +172,7 @@
 							<i class="am-icon-comments-o"></i>
 						</div>
 						<div class="details">
-							<div class="number">1349</div>
+							<div class="number" id="number-st"></div>
 							<div class="desc">已选题人数</div>
 						</div>
 						<a class="more" href="stdetails"> 查看更多 <i
@@ -237,10 +186,10 @@
 							<i class="am-icon-bar-chart-o"></i>
 						</div>
 						<div class="details">
-							<div class="number">0</div>
+							<div class="number" id="number-topic">0</div>
 							<div class="desc">待审核课题</div>
 						</div>
-						<a class="more" href="topiclist1"> 查看更多 <i
+						<a class="more" href="topiclist"> 查看更多 <i
 							class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
@@ -251,10 +200,10 @@
 							<i class="am-icon-apple"></i>
 						</div>
 						<div class="details">
-							<div class="number">0</div>
-							<div class="desc">待定</div>
+							<div class="number" id="number-apply"></div>
+							<div class="desc">待审阅文档</div>
 						</div>
-						<a class="more" href="#"> 查看更多 <i
+						<a class="more" href="application"> 查看更多 <i
 							class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>
@@ -265,10 +214,10 @@
 							<i class="am-icon-android"></i>
 						</div>
 						<div class="details">
-							<div class="number">0</div>
-							<div class="desc">待定</div>
+							<div class="number" id="number-pass"></div>
+							<div class="desc">已通过课题</div>
 						</div>
-						<a class="more" href="#"> 查看更多 <i
+						<a class="more" href="topiclist2"> 查看更多 <i
 							class="m-icon-swapright m-icon-white"></i>
 						</a>
 					</div>

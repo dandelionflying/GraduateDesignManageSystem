@@ -2,7 +2,7 @@
 	margin-top: 80px;
 	background-color: #DCDCDC;
 	border-radius: 20px;
-	width: 400px;
+	width: 30%;
 	text-align: center;
 }
 .divideschedules{
@@ -25,4 +25,8 @@
 }
 .task-state{
 	
+}
+td{
+	text-align: center;
+	height: 40px;
 }

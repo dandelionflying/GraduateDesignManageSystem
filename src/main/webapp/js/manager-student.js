@@ -54,4 +54,34 @@ function changepage(currentpage){
 }
 window.onload = function(){
 	changepage(0);
+	$("#add-student-btn").on("click",function(){
+		$("#add-student-modal").modal("open");
+	});
+	$("#commit-excel").on('click',function(){
+		var fileDir = $("#newstudents").val();  
+	    var suffix = fileDir.substr(fileDir.lastIndexOf("."));  
+	    if("" == fileDir){  
+	        $("#warning-msg").html("选择需要导入的Excel文件！");
+	    }else if(".xls" != suffix && ".xlsx" != suffix ){  
+	        $("#warning-msg").html("选择Excel格式的文件导入！");
+	    }else{
+	    	var formData = new FormData();
+	    	formData.append("file",$("#newstudents")[0].files[0]);
+	    	$.ajax({
+	    		type : "POST",
+	    		url : "add-students",
+	    		data : formData,
+	    		contentType: false,
+	    		processData: false,
+	    		success : function(result){
+	    			if(result.status){
+	    				alert(result.message);
+	    				window.location.reload();
+	    			}else{
+	    				alert(result.message);
+	    			}
+	    		}
+	    	});
+	    }
+	});
 }
