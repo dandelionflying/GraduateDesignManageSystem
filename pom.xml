@@ -14,7 +14,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		 <!-- spring版本 -->
 		 <spring.version>4.3.10.RELEASE</spring.version>
-		 <springsecurity.version>4.2.4.RELEASE</springsecurity.version>
+		 <springsecurity.version>5.3.3.RELEASE</springsecurity.version>
 		 <poi.version>3.14-beta1</poi.version>
 	</properties>
 	
