@@ -15,7 +15,7 @@
 		 <!-- spring版本 -->
 		 <spring.version>4.3.10.RELEASE</spring.version>
 		 <springsecurity.version>4.2.4.RELEASE</springsecurity.version>
-		 <poi.version>3.14-beta1</poi.version>
+		 <poi.version>4.1.1</poi.version>
 	</properties>
 	
 	
